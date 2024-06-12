@@ -1,0 +1,6 @@
+minishell
+.DS_Store
+*.d
+*.o
+*.a
+*test*
