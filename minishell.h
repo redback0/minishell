@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/06/12 14:32:31 by njackson         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:47:40 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# ifndef PS1
-#  define PS1 "minishell \e[38;2;187;0;0m%p\x1b[0m $> "
-# endif
+// moving this to a seperate header
+# include "config.h"
 
 typedef struct s_msh_dat
 {

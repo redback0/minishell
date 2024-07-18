@@ -30,7 +30,7 @@ ifeq ($(UNAME),Linux)
 endif
 
 
-IFLAGS = $(addprefix -I, $(DLIBS))
+IFLAGS = $(addprefix -I, $(DLIBS)) -Iconfig -Idefault_config
 
 #PREFIX/COLOUR VARIABLES
 C_GRAY = \033[1;30m
@@ -80,7 +80,7 @@ debug_cflags:
 
 clean:
 	@printf "$(PREFIX) $(C_RED)REMOVING OBJECT FILES AND LIBRARIES$(NC)\n"
-	@rm -f $(OBJ)
+	@rm -f $(OBJ) $(DEP)
 	@- $(foreach D, $(DLIBS), \
 		$(MAKE) clean fclean -C $D --no-print-directory -s -i ; )
 
