@@ -8,7 +8,7 @@ endif
 
 NAME = minishell
 
-SRC = minishell.c
+SRC = $(addprefix src/, minishell.c)
 
 OBJ = $(SRC:.c=.o)
 DEP = $(SRC:.c=.d)
@@ -30,7 +30,7 @@ ifeq ($(UNAME),Linux)
 endif
 
 
-IFLAGS = $(addprefix -I, $(DLIBS)) -Iconfig -Idefault_config
+IFLAGS = -I. $(addprefix -I, $(DLIBS)) -Iconfig -Idefault_config
 
 #PREFIX/COLOUR VARIABLES
 C_GRAY = \033[1;30m

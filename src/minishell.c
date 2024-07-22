@@ -6,13 +6,31 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/06/12 14:28:06 by njackson         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:45:29 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	ms_sig_interupt()
+{
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	rl_redisplay();
+}
+
 int	main(void)
+{
+	struct sigaction	sa_sig_int;
+
+	sa_sig_int.sa_handler = ms_sig_interupt;
+	sigemptyset(&sa_sig_int.sa_mask);
+	sigaction(SIGINT, &sa_sig_int, NULL);
+	shell_loop();
+}
+
+void	shell_loop()
 {
 	char	*prompt;
 	char	*line;
@@ -25,6 +43,11 @@ int	main(void)
 		if (line && *line)
 		{
 			add_history(line);
+			if (ft_strncmp(line, "exit", 5) == 0)
+			{
+				free(line);
+				exit(0);
+			}
 			printf("%s\n", line);
 			free(line);
 		}

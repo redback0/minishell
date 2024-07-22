@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/18 17:47:40 by njackson         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:34:04 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <stdlib.h>
 # include <stdio.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -41,6 +42,7 @@ t_command	*tokenizer(char *line, t_msh_dat msh);
 void		run_command(t_command cmd, t_msh_dat msh);
 // this might need a different type
 char		*get_prompt(void);
+void		shell_loop(void);
 
 // BUILTINS
 // will we need to give these env? or will we be able to use getenv
