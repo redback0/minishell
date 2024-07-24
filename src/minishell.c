@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/22 18:45:29 by njackson         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:47:30 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ms_exit() // probably add parameters
+{
+	exit(0);
+}
 
 void	ms_sig_interupt()
 {
@@ -23,10 +28,17 @@ void	ms_sig_interupt()
 int	main(void)
 {
 	struct sigaction	sa_sig_int;
+	struct sigaction	sa_sig_quit;
 
 	sa_sig_int.sa_handler = ms_sig_interupt;
 	sigemptyset(&sa_sig_int.sa_mask);
+	sa_sig_int.sa_flags = 0;
 	sigaction(SIGINT, &sa_sig_int, NULL);
+	sa_sig_quit.sa_handler = SIG_IGN;
+	sigemptyset(&sa_sig_quit.sa_mask);
+	sa_sig_quit.sa_flags = 0;
+	sigaction(SIGQUIT, &sa_sig_quit, NULL);
+	printf("%s", SPLASH);
 	shell_loop();
 }
 
@@ -46,10 +58,18 @@ void	shell_loop()
 			if (ft_strncmp(line, "exit", 5) == 0)
 			{
 				free(line);
-				exit(0);
+				ms_exit();
 			}
 			printf("%s\n", line);
 			free(line);
+		}
+		else if (line)
+		{
+		}
+		else
+		{
+			printf("exit\n");
+			ms_exit();
 		}
 	}
 }
