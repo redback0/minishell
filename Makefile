@@ -1,24 +1,25 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror $(DEBUG_FLAGS)
-DEBUG_FLAGS =
-ifeq ($(DEBUG), 1)
-	DEBUG_FLAGS = -g -DDEBUG=1
-	export DEBUG
-endif
+CC := cc
+CFLAGS := -Wall -Wextra -Werror
+DEBUG_FLAGS := -g -DDEBUG=1
 
-NAME = minishell
+NAME := minishell
 
-SRC = $(addprefix src/, minishell.c)
+FILES := minishell
 
-OBJ = $(SRC:.c=.o)
-DEP = $(SRC:.c=.d)
+SRC_DIR := src/
+OBJ_DIR := obj/
+DEBUG_DIR := debug_obj/
 
-LIBFT = libft
-DLIBS = $(LIBFT)
-LIBS = ft
-FLIBS = $(join $(addsuffix /lib, $(DLIBS)), $(addsuffix .a, $(LIBS)))
+SRC := $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES)))
+OBJ := $(addsuffix .o, $(addprefix $(OBJ_DIR), $(FILES)))
+DEP := $(OBJ:.o=.d)
+DEBUG_OBJ := $(patsubst $(OBJ_DIR)%, $(DEBUG_DIR)%, $(OBJ))
 
-LFLAGS = $(addprefix -L, $(DLIBS)) $(addprefix -l, $(LIBS)) -lreadline
+DLIBS := libft
+LIBS := ft
+FLIBS := $(join $(addsuffix /lib, $(DLIBS)), $(addsuffix .a, $(LIBS)))
+
+LFLAGS := $(addprefix -L, $(DLIBS)) $(addprefix -l, $(LIBS)) -lreadline
 
 # OS SPECIFICS
 UNAME := $(shell uname -s)
@@ -30,14 +31,14 @@ ifeq ($(UNAME),Linux)
 endif
 
 
-IFLAGS = -I. $(addprefix -I, $(DLIBS)) -Iconfig -Idefault_config
+IFLAGS := -I. $(addprefix -I, $(DLIBS)) -Iinc -Iconfig -Idefault_config
 
 #PREFIX/COLOUR VARIABLES
-C_GRAY = \033[1;30m
-C_ORANGE = \033[0;33m
-C_RED = \033[0;31m
-C_CYAN = \033[0;36m
-NC = \033[0m
+C_GRAY := \033[1;30m
+C_ORANGE := \033[0;33m
+C_RED := \033[0;31m
+C_CYAN := \033[0;36m
+NC := \033[0m
 
 PREFIX := $(C_ORANGE)<$(NAME)>$(NC)
 
@@ -51,13 +52,19 @@ print:
 	@echo $(IFLAGS)
 	@echo $(SRC)
 	@echo $(OBJ)
+	@echo $(DEP)
+	@echo $(DEBUG_OBJ)
 	@echo $(DLIBS)
 	@echo $(LIBS)
 	@echo $(FLIBS)
 
 $(NAME): $(OBJ) $(FLIBS)
 	@printf "$(PREFIX) CREATING $(C_CYAN)$@$(NC)\n"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LFLAGS)
+	@$(CC) $(CFLAGS) -o $@ $(OBJ) $(LFLAGS)
+
+$(NAME)_debug: $(DEBUG_OBJ) $(FLIBS)
+	@printf "$(PREFIX) CREATING $(C_CYAN)$@$(NC)\n"
+	@$(CC) $(CFLAGS) -o $@ $(DEBUG_OBJ) $(LFLAGS)
 
 $(FLIBS):
 	@printf "$(PREFIX) MAKING $(C_CYAN)$@$(NC) ARCHIVE\n"
@@ -65,28 +72,39 @@ $(FLIBS):
 
 -include $(DEP)
 
-%.o: %.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	@printf "$(PREFIX) $(C_GRAY)COMPILING $(C_CYAN)$@$(NC)\n"
 	@$(CC) $(CFLAGS) $(IFLAGS) -MMD -c $< -o $@
+
+$(OBJ_DIR):
+	@mkdir $(OBJ_DIR)
+
+$(DEBUG_DIR)%.o: $(SRC_DIR)%.c | $(DEBUG_DIR)
+	@printf "$(PREFIX) $(C_GRAY)COMPILING $(C_CYAN)$@$(NC)\n"
+	@$(CC) $(CFLAGS) $(IFLAGS) -MMD -c $< -o $@
+
+$(DEBUG_DIR):
+	@mkdir $(DEBUG_DIR)
+
+config/config.h: default_config/config.h
 
 leaks: all
 	@printf "$(C_RED)NOT IMPLEMENTED$(NC)\n"
 
-debug: fclean debug_cflags $(NAME)
+debug: _debug $(NAME)_debug
 
-debug_cflags:
-	@$(eval DEBUG_FLAGS = -g -DDEBUG=1)
-	@$(eval export DEBUG=1)
+_debug:
+	@printf "$(PREFIX) $(RED)***DEBUG MODE***$(NC)\n"
 
 clean:
 	@printf "$(PREFIX) $(C_RED)REMOVING OBJECT FILES AND LIBRARIES$(NC)\n"
-	@rm -f $(OBJ) $(DEP)
+	@rm -rf $(OBJ_DIR) $(DEBUG_DIR)
 	@- $(foreach D, $(DLIBS), \
 		$(MAKE) clean fclean -C $D --no-print-directory -s -i ; )
 
 fclean: clean
 	@printf "$(PREFIX) $(C_RED)REMOVING ARCHIVE$(NC)\n"
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(NAME)_debug
 
 re: fclean all
 

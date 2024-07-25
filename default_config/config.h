@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:43:49 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/24 17:48:36 by njackson         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:37:01 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // TO CHANGE THIS, COPY IT INTO A NEW FOLDER AT THE ROOT OF THE REPOSITORY
 // CALLED "config"
-# define PS1 "minishell \e[38;2;0;100;100m%p\x1b[0m $> "
+# define PS1 "minishell \1\e[38;2;0;204;255m\2%p\1\e[0m\2 $> "
 
 # define SPLASH "\
 \e[38;2;0;204;255m                               ___              ______\n\
@@ -33,7 +33,7 @@
 \e[38;2;0;204;255m \\ ---- / ||    || | ----- | ----- | -----\n\
                                ‾‾‾‾             ‾‾‾‾‾‾  ‾‾‾‾‾‾  ‾‾‾‾‾‾\n\
 \e[0mBy \e[38;2;255;215;0mPhilanthropist \e[38;2;0;204;255mnjackson\e[0m \
-& \e[38;2;255;79;167mbmilford\e[0m\n\n\n\
+& \e[38;2;255;79;167mbmilford\e[0m 🐚\n\n\n\
 "
 
 

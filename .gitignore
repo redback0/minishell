@@ -5,3 +5,4 @@ minishell
 *.a
 *test*
 config/*
+*debug*
