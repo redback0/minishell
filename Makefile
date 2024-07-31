@@ -4,7 +4,7 @@ DEBUG_FLAGS := -g -DDEBUG=1
 
 NAME := minishell
 
-FILES := minishell
+FILES := minishell ft_env ft_env_ext signals execute
 
 SRC_DIR := src/
 OBJ_DIR := obj/
@@ -81,7 +81,7 @@ $(OBJ_DIR):
 
 $(DEBUG_DIR)%.o: $(SRC_DIR)%.c | $(DEBUG_DIR)
 	@printf "$(PREFIX) $(C_GRAY)COMPILING $(C_CYAN)$@$(NC)\n"
-	@$(CC) $(CFLAGS) $(IFLAGS) -MMD -c $< -o $@
+	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(IFLAGS) -MMD -c $< -o $@
 
 $(DEBUG_DIR):
 	@mkdir $(DEBUG_DIR)

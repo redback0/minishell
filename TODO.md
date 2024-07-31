@@ -9,13 +9,13 @@
 - export
 - unset
 - env
-- exit
+- exit // done?
 
 ## Signals to handle
 
-- ctrl-c
-- ctrl-d
-- ctrl-\
+- ctrl-c // should be done
+- ctrl-d // should be done
+- ctrl-\ // should be done
 
 ## Other things
 

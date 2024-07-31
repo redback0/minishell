@@ -6,43 +6,50 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/23 14:55:57 by njackson         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:49:31 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+
+# define _DEFAULT_SOURCE
+// this is here cause vs code complains -- remove later, it's not needed for compiling
+
+
 # include "libft.h"
+# include "ft_env.h"
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 // moving this to a seperate header
 # include "config.h"
 
-typedef struct s_ms_dat
-{
-	char	**env;
-	char	*prompt;
-	// DEFINITELY MORE STUFF, I'LL WORK OUT WHAT LATER
-}	t_ms_dat;
-
 typedef struct s_command
 {
-	char	*cmd;
 	char	**av;
 	int		fdin;
 	int		fdout;
 }	t_command;
 
-t_command	*tokenizer(char *line, t_ms_dat ms);
-void		run_command(t_command cmd, t_ms_dat ms);
-// this might need a different type
+void		ms_exit();
 char		*get_prompt(void);
 void		shell_loop(void);
+void		tokenizer(char *line);
+
+// signals
+void		init_signals(void);
+void		ms_sig_interupt(int signo);
+
+// planned functions
+void		run_command(t_command cmd);
 
 // BUILTINS
 // will we need to give these env? or will we be able to use getenv
@@ -53,7 +60,6 @@ int			ms_pwd(int ac, char *av[]);
 int			ms_export(int ac, char *av[]);
 int			ms_unset(int ac, char *av[]);
 int			ms_env(int ac, char *av[]);
-int			ms_exit();
 // this can send a signal to the main process to tell it to exit. I think
 
 #endif

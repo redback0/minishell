@@ -6,40 +6,24 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/24 17:47:30 by njackson         ###   ########.fr       */
+/*   Updated: 2024/07/31 19:31:29 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ms_exit() // probably add parameters
+int	main(int ac, char *av[], char *envp[])
 {
-	exit(0);
-}
-
-void	ms_sig_interupt()
-{
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	rl_redisplay();
-}
-
-int	main(void)
-{
-	struct sigaction	sa_sig_int;
-	struct sigaction	sa_sig_quit;
-
-	sa_sig_int.sa_handler = ms_sig_interupt;
-	sigemptyset(&sa_sig_int.sa_mask);
-	sa_sig_int.sa_flags = 0;
-	sigaction(SIGINT, &sa_sig_int, NULL);
-	sa_sig_quit.sa_handler = SIG_IGN;
-	sigemptyset(&sa_sig_quit.sa_mask);
-	sa_sig_quit.sa_flags = 0;
-	sigaction(SIGQUIT, &sa_sig_quit, NULL);
-	printf("%s", SPLASH);
+	(void)ac, (void)av;
+	init_signals();
+	init_env(envp);
 	shell_loop();
+}
+
+void	ms_exit()
+{
+	ft_clear_env();
+	exit(0);
 }
 
 void	shell_loop()
@@ -60,8 +44,7 @@ void	shell_loop()
 				free(line);
 				ms_exit();
 			}
-			printf("%s\n", line);
-			free(line);
+			tokenizer(line);
 		}
 		else if (line)
 		{
@@ -71,6 +54,7 @@ void	shell_loop()
 			printf("exit\n");
 			ms_exit();
 		}
+		free(line);
 	}
 }
 
