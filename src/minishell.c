@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/31 19:31:29 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:52:57 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	shell_loop()
 				free(line);
 				ms_exit();
 			}
-			tokenizer(line);
+			execute_line(line);
 		}
 		else if (line)
 		{

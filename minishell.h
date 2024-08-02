@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/31 18:49:31 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:39:06 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef struct s_command
 void		ms_exit();
 char		*get_prompt(void);
 void		shell_loop(void);
-void		tokenizer(char *line);
+void		execute_line(char *line);
+char		**get_cmd_args(char *line, int *i);
 
 // signals
 void		init_signals(void);

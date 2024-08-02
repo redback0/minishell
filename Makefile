@@ -88,8 +88,9 @@ $(DEBUG_DIR):
 
 config/config.h: default_config/config.h
 
-leaks: all
-	@printf "$(C_RED)NOT IMPLEMENTED$(NC)\n"
+leaks: debug
+	@printf "$(PREFIX) $(C_RED)RUNNING VALGRIND WITH READLINE SUPPRESSION$(NC)\n"
+	@valgrind --suppressions=readline.supp ./minishell_debug
 
 debug: _debug $(NAME)_debug
 
