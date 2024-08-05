@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/02 15:32:39 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:01:55 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execute_line(char *line)
 	int		i;
 
 	i = 0;
-	argv = get_cmd_args(line, &i);
+	argv = shell_expand(get_cmd_args(line, &i));
 	if (access(argv[0], X_OK) != 0)
 	{
 		printf("%s: Permission denied\n", argv[0]);
@@ -51,44 +51,72 @@ static void	finish_quote(char *line, int *i)
 		++(*i);
 }
 
-char	**get_cmd_args(char *line, int *i)
+t_list	*get_cmd_args(char *line, int *i)
 {
-	char	**args;
+	t_list	*args;
+	t_list	**alast;
 	int		argc;
 	int		j;
 
-	argc = 0;
-	j = *i;
-	while (line[j] && line[j] != '|')
-	{
-		while (line[j] && ft_isspace(line[j]))
-			++j;
-		if (line[j])
-			argc++;
-		while (line[j] && !ft_isspace(line[j]) && line[j] != '|')
-			if (line[j] == '\'' || line[j] == '"')
-				finish_quote(line, &j);
-			else
-				++j;
-	}
-	args = malloc((argc + 1) * sizeof(char *));
-	argc = 0;
+	alast = &args;
 	while (line[*i] && line[*i] != '|')
 	{
 		if (!ft_isspace(line[*i]))
 		{
 			j = 0;
-			while (line[*i + j] && !ft_isspace(line[*i + j]) && line[j] != '|' && line[j] != '<' && line[j] != '>')
+			while (line[*i + j] && !ft_isspace(line[*i + j]) && line[j] != '|')
 				if (line[*i + j] == '\'' || line[*i + j] == '"')
 					finish_quote(line + *i, &j);
 				else
 					++j;
-			args[argc++] = ft_substr(line, *i, j);
+			alast->content = ft_substr(line, *i, j);
+			alast = &((*args)->next);
 			*i += j;
 		}
 		else
 			++(*i);
 	}
-	args[argc] = 0;
 	return (args);
+}
+
+t_command	*shell_expand(t_list *args)
+{
+	t_command	*comm;
+	t_list		**next;
+	char		*cont;
+	int			cont_i;
+	int			arg_len;
+	int			argc;
+
+	comm->infd = 0;
+	comm->outfd = 0;
+	next = &args;
+	argc = 0;
+	while (*next)
+	{
+		if (*((char *)(*next)->content) != '<'
+			&& *((char *)(*next)->content) != '>')
+			argc++;
+		else if (!*((char *)(*next)->content + 1))
+			argc--;
+		next = &((*next)->next);
+	}
+	comm = malloc(sizeof(comm));
+	comm->av = malloc((argc + 1) * sizeof(char *));
+	next = &args;
+	while (*next)
+	{
+		cont = (*next)->content;
+		cont_i = 0;
+		arg_len = 0;
+		while (cont[cont_i])
+		{
+			if (*cont == '\'' || *cont == '"')
+				finish_quote(cont, &cont_i); // need to get how many characters removed
+			else if (*cont == '<')
+				// infd
+			else if (*cont == '>')
+				// outfd
+		}
+	}
 }

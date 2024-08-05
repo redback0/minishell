@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/02 14:39:06 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:28:34 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void		ms_exit();
 char		*get_prompt(void);
 void		shell_loop(void);
 void		execute_line(char *line);
-char		**get_cmd_args(char *line, int *i);
+t_list		*get_cmd_args(char *line, int *i);
+char		**shell_expand(t_list *args);
 
 // signals
 void		init_signals(void);
