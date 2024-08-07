@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:25:44 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/31 19:13:08 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:08:25 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_env(char **envp)
 			++envp;
 			continue ;
 		}
-		*new = malloc(sizeof(**new));
+		*new = malloc(sizeof(*new));
 		equals -= (size_t)(*envp);
 		(*new)->key = ft_substr(*envp, 0, equals);
 		(*new)->value = ft_substr(*envp, equals + 1, -1);

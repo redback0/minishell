@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/02 17:28:34 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:14:33 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,21 @@ typedef struct s_command
 	int		fdout;
 }	t_command;
 
-void		ms_exit();
+void		ms_exit(void);
 char		*get_prompt(void);
 void		shell_loop(void);
 void		execute_line(char *line);
 t_list		*get_cmd_args(char *line, int *i);
 char		**shell_expand(t_list *args);
+void		finish_quote(const char *line, int *i);
+char		**ms_split(const char *line, char c);
+void		execute_command(char *comm);
+void		variable_expand(char **argv);
 
 // signals
 void		init_signals(void);
 void		ms_sig_interupt(int signo);
+void		ms_sig_interupt_alt(int signo);
 
 // planned functions
 void		run_command(t_command cmd);

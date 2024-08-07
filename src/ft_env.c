@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:22:42 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/31 15:28:27 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:11:56 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ t_dict	**ft_get_env_list(void)
 char	*ft_get_env(char *key)
 {
 	t_dict	*env;
+	int		k_len;
 
 	env = *ft_get_env_list();
 	while (env)
 	{
-		if (ft_strncmp(env->key, key, -1) == 0)
+		k_len = ft_strlen(env->key);
+		if (ft_strncmp(env->key, key, k_len) == 0
+			&& !ft_isalnum(key[k_len]) && key[k_len] != '_')
 			return (env->value);
 		env = env->next;
 	}

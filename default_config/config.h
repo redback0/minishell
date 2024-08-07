@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:43:49 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/02 19:57:42 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:15:04 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@
 \e[0mBy \e[38;2;255;215;0mPhilanthropist \e[38;2;0;204;255mnjackson\e[0m \
 & \e[38;2;255;79;167mbmilford\e[0m 🐚\n\n\n\
 "
-
 
 #endif

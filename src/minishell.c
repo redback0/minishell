@@ -6,11 +6,13 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/01 13:52:57 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:49:45 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_status = 0;
 
 int	main(int ac, char *av[], char *envp[])
 {

@@ -4,7 +4,7 @@ DEBUG_FLAGS := -g -DDEBUG=1
 
 NAME := minishell
 
-FILES := minishell ft_env ft_env_ext signals execute
+FILES := minishell ft_env ft_env_ext signals execute execute_utils
 
 SRC_DIR := src/
 OBJ_DIR := obj/
@@ -90,7 +90,7 @@ config/config.h: default_config/config.h
 
 leaks: debug
 	@printf "$(PREFIX) $(C_RED)RUNNING VALGRIND WITH READLINE SUPPRESSION$(NC)\n"
-	@valgrind --suppressions=readline.supp ./minishell_debug
+	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell_debug
 
 debug: _debug $(NAME)_debug
 
