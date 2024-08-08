@@ -20,5 +20,5 @@
 ## Other things
 
 - implement pipes (<, |, >, <<, >>)
-- implement environment variables ($VAR)
-- implement $? (evaluates to the most recent exit status)
+- implement environment variables ($VAR) // should be done
+- implement $?

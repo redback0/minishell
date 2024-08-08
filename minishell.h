@@ -6,17 +6,12 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/07 15:14:33 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:20:39 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-
-# define _DEFAULT_SOURCE
-// this is here cause vs code complains -- remove later, it's not needed for compiling
-
 
 # include "libft.h"
 # include "ft_env.h"
@@ -29,7 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// moving this to a seperate header
+// PS1 and SPLASH defined here
 # include "config.h"
 
 typedef struct s_command
@@ -49,6 +44,7 @@ void		finish_quote(const char *line, int *i);
 char		**ms_split(const char *line, char c);
 void		execute_command(char *comm);
 void		variable_expand(char **argv);
+void		remove_quotes(char **argv);
 
 // signals
 void		init_signals(void);
