@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/05 18:49:45 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:28:29 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	main(int ac, char *av[], char *envp[])
 	shell_loop();
 }
 
-void	ms_exit()
+void	ms_exit(void)
 {
 	ft_clear_env();
 	exit(0);
 }
 
-void	shell_loop()
+void	shell_loop(void)
 {
 	char	*prompt;
 	char	*line;

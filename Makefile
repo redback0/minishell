@@ -4,7 +4,7 @@ DEBUG_FLAGS := -g -DDEBUG=1
 
 NAME := minishell
 
-FILES := minishell ft_env ft_env_ext signals execute execute_utils
+FILES := minishell ft_env ft_env_ext signals execute execute_utils parse_args
 
 SRC_DIR := src/
 OBJ_DIR := obj/

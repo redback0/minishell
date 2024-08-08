@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/08 13:47:34 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:54:24 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,90 +56,4 @@ void	execute_command(char *comm) // I need to pass fds here
 		exit(1);
 	}
 	ft_split_free(argv, free);
-}
-
-void	variable_expand(char **argv)
-{
-	int		i;
-	int		j;
-	char	*old_arg;
-	char	*var;
-
-	while (*argv)
-	{
-		i = 0;
-		while ((*argv)[i])
-		{
-			if ((*argv)[i] == '\'')
-				finish_quote(*argv, &i);
-			else if ((*argv)[i++] == '$')
-			{
-				old_arg = *argv;
-				j = 0;
-				if (!ft_isdigit(old_arg[i]))
-					while (ft_isalnum((old_arg)[i + j])
-						|| (old_arg)[i + j] == '_')
-						++j;
-				var = ft_get_env(old_arg + i);
-				(*argv)[i - 1] = 0;
-				*argv = ft_strnjoin(3, old_arg, var, old_arg + i + j);
-				free(old_arg);
-				i += ft_strlen(var) - 1;
-			}
-		}
-		++argv;
-	}
-}
-
-void	remove_quotes(char **argv)
-{
-	int		j;
-	int		i;
-	char	*new_arg_parts[3];
-
-	while (*argv)
-	{
-		i = 0;
-		while ((*argv)[i])
-		{
-			if ((*argv)[i] == '\'' || (*argv)[i] == '"')
-			{
-				new_arg_parts[0] = *argv;
-				new_arg_parts[1] = *argv + i + 1;
-				j = 0;
-				finish_quote(*argv + i, &j);
-				if (j > 1 && (*argv)[i + j - 1] == (*argv)[i])
-				{
-					new_arg_parts[2] = *argv + i + j;
-					(*argv)[i] = 0;
-					(*argv)[i + j - 1] = 0;
-					*argv = ft_strnjoin(3, new_arg_parts[0], new_arg_parts[1], new_arg_parts[2]);
-					free(new_arg_parts[0]);
-					i += j - 3;
-				}
-			}
-			++i;
-		}
-		++argv;
-	}
-}
-
-void	finish_quote(const char *line, int *i)
-{
-	int	s;
-
-	if (line[*i] != '\'' && line[*i] != '"')
-	{
-		++(*i);
-		return ;
-	}
-	s = *i;
-	++(*i);
-	while (line[*i] && line[*i] != line[s])
-		++(*i);
-	if (line[*i] != '\0')
-		++*i;
-	else
-		*i = s + 1;
-
 }

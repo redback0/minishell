@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:42:38 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/08 14:00:44 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:24:29 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*get_word(const char *line, int *i, char c, char **out)
 	}
 	return (*out = ft_substr(line, 0, *i));
 }
-
 
 char	**ms_split(const char *line, char c)
 {
