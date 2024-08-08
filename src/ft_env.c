@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:22:42 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/07 15:11:56 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/09 00:11:01 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*ft_get_env(char *key)
 		if (ft_strncmp(env->key, key, k_len) == 0
 			&& !ft_isalnum(key[k_len]) && key[k_len] != '_')
 			return (env->value);
+		else if (env->key[0] == '?' && key[0] == '?')
+			return (env->value);
 		env = env->next;
 	}
 	return (0);
@@ -45,13 +47,14 @@ void	ft_set_env(char *k, char *v)
 	{
 		if (ft_strncmp((*env)->key, k, -1) == 0)
 		{
+			free((*env)->value);
 			(*env)->value = v;
 			return ;
 		}
 		env = &((*env)->next);
 	}
 	*env = malloc(sizeof(**env));
-	(*env)->key = k;
+	(*env)->key = ft_strdup(k);
 	(*env)->value = v;
 	(*env)->next = 0;
 }

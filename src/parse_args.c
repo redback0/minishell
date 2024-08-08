@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:53:45 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/08 17:53:52 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/09 00:11:22 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ static char	*add_var(char *argv, int *i)
 	char	*old_arg;
 	char	*var;
 	int		j;
-	int		alloced;
 
-	alloced = 0;
 	old_arg = argv;
 	j = 0;
 	if (!ft_isdigit(old_arg[*i]))
@@ -29,9 +27,8 @@ static char	*add_var(char *argv, int *i)
 			++j;
 	if (argv[*i] == '?')
 	{
-		var = ft_itoa(g_status);
+		var = ft_get_env("?");
 		++j;
-		alloced = 1;
 	}
 	else
 		var = ft_get_env(old_arg + *i);
@@ -39,8 +36,6 @@ static char	*add_var(char *argv, int *i)
 	argv = ft_strnjoin(3, old_arg, var, old_arg + *i + j);
 	free(old_arg);
 	*i += ft_strlen(var) - 1;
-	if (alloced)
-		free(var);
 	return (argv);
 }
 

@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/08 14:20:39 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:08:34 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_list		*get_cmd_args(char *line, int *i);
 char		**shell_expand(t_list *args);
 void		finish_quote(const char *line, int *i);
 char		**ms_split(const char *line, char c);
-void		execute_command(char *comm);
+int			execute_command(char *comm);
 void		variable_expand(char **argv);
 void		remove_quotes(char **argv);
 
