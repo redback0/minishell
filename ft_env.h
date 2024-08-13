@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:47:11 by njackson          #+#    #+#             */
-/*   Updated: 2024/07/31 16:34:44 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:23:54 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_env(char **envp);
 char	*ft_get_env(char *key);
 void	ft_set_env(char *k, char *v);
 void	ft_clear_env(void);
+void	ft_unset_env(char *k);
 char	**ft_full_env(void);
 
 #endif

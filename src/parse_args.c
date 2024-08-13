@@ -6,20 +6,20 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:53:45 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/09 00:11:22 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:37:04 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int	g_status;
-
-static char	*add_var(char *argv, int *i)
+static char	*add_var(char *argv, int *i, int status)
 {
 	char	*old_arg;
 	char	*var;
 	int		j;
+	int		alloced;
 
+	alloced = 0;
 	old_arg = argv;
 	j = 0;
 	if (!ft_isdigit(old_arg[*i]))
@@ -27,7 +27,8 @@ static char	*add_var(char *argv, int *i)
 			++j;
 	if (argv[*i] == '?')
 	{
-		var = ft_get_env("?");
+		var = ft_itoa(status);
+		alloced = 1;
 		++j;
 	}
 	else
@@ -36,10 +37,12 @@ static char	*add_var(char *argv, int *i)
 	argv = ft_strnjoin(3, old_arg, var, old_arg + *i + j);
 	free(old_arg);
 	*i += ft_strlen(var) - 1;
+	if (alloced)
+		free(var);
 	return (argv);
 }
 
-void	variable_expand(char **argv)
+void	variable_expand(char **argv, int status)
 {
 	int		i;
 
@@ -51,7 +54,7 @@ void	variable_expand(char **argv)
 			if ((*argv)[i] == '\'')
 				finish_quote(*argv, &i);
 			else if ((*argv)[i++] == '$')
-				*argv = add_var(*argv, &i);
+				*argv = add_var(*argv, &i, status);
 		}
 		++argv;
 	}

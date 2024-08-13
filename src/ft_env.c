@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:22:42 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/09 00:11:01 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:09:55 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ char	*ft_get_env(char *key)
 		k_len = ft_strlen(env->key);
 		if (ft_strncmp(env->key, key, k_len) == 0
 			&& !ft_isalnum(key[k_len]) && key[k_len] != '_')
-			return (env->value);
-		else if (env->key[0] == '?' && key[0] == '?')
 			return (env->value);
 		env = env->next;
 	}

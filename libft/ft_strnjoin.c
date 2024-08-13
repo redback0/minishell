@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:25:05 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/07 17:01:00 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:12:13 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ char	*ft_strnjoin(unsigned int num_strs, ...)
 		i[1] += ft_strlcpy(out + i[1], strs[i[2]++], i[0] + 1 - i[1]);
 	free(strs);
 	va_end(args);
-	return(out);
+	return (out);
 }

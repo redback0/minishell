@@ -6,13 +6,11 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/08 14:28:29 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:40:05 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	g_status = 0;
 
 int	main(int ac, char *av[], char *envp[])
 {
@@ -50,13 +48,13 @@ void	shell_loop(void)
 		}
 		else if (line)
 		{
+			free(line);
 		}
 		else
 		{
 			printf("exit\n");
 			ms_exit();
 		}
-		free(line);
 	}
 }
 
