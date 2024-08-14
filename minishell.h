@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/13 18:20:14 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:26:21 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ void		execute_line(char *line);
 char		**shell_expand(t_list *args);
 void		finish_quote(const char *line, int *i);
 char		**ms_split(const char *line, char c);
-int			execute_command(t_comm *comm, t_list *comm_list);
+void		execute_command(t_list *comm_list);
+void		execute_command_child(t_comm *comm, t_list *comm_list);
 void		find_redirects(t_comm *comm, char *line);
 void		variable_expand(char **argv, int status);
 void		remove_quotes(char **argv);
 t_list		*get_commands(char *line, int status);
 void		free_command(void *comm);
-
+void		reverse_pipe(int infd, int outfd);
 // signals
 void		init_signals(void);
 void		ms_sig_interupt(int signo);
@@ -66,6 +67,13 @@ void		ms_sig_interupt_alt(int signo);
 char		*find_command(char *command);
 // returns allocated the absolute path of a given command, NULL if there's no
 // match. This will be called after checking for builtins
+
+int			open_redir_files(t_comm *comm);
+// opens the files at infile and outfile, and sets the fds to comm->fdin and
+// fd->out.
+//  if comm->is_heredoc is 1, run heredoc instead.
+//  outfile can be truncate or append, depending on comm->is_append
+//  if comm->fdin and/or comm->fdout is >= 0, close them before setting.
 
 // BUILTINS
 // will we need to give these env? or will we be able to use getenv

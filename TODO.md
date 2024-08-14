@@ -1,7 +1,7 @@
 
 # Minishell todo
 
-## Commands to implement
+## Commands to implement -- beth
 
 - echo
 - cd
@@ -19,6 +19,8 @@
 
 ## Other things
 
-- implement pipes (<, |, >, <<, >>)
+- implement pipes (<, |, >, <<, >>) // should be done, almost
 - implement environment variables ($VAR) // should be done
-- implement $?
+- implement $? // should be done
+- search the path for commands -- beth
+- open files for read/write -- beth

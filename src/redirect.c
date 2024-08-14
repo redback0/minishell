@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/13 18:43:51 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:28:18 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,7 @@ void	find_redirects(t_comm *comm, char *line)
 			finish_quote(line, &i);
 			line += i;
 		}
-	}
-}
-
-void	reverse_pipe(int infd, int outfd)
-{
-	char	buf[BUFFER_SIZE];
-	int		bytes;
-
-	bytes = read(infd, buf, BUFFER_SIZE);
-	while (bytes)
-	{
-		write(outfd, buf, bytes);
-		bytes = read(infd, buf, BUFFER_SIZE);
+		else
+			++line;
 	}
 }
