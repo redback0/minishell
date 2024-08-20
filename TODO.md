@@ -25,3 +25,4 @@
 - search the path for commands -- beth
 - open files for read/write -- beth
 - add the single command execute function, in execute.c -- beth
+- check how redirects act with builtins

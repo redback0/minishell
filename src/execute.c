@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/20 18:20:06 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:42:01 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	process_line(char *line)
 
 	comm_list = get_commands(line, status);
 	free(line);
+	// if there's only one command, run it here, and if it's builtin, don't fork
+	// if (ft_lstsize(comm_list) == 1)
+	// 		execute one line
+	// else (line below)
 	execute_line(comm_list);
 	sa_sig_ign.sa_handler = ms_sig_interupt_alt;
 	sigemptyset(&sa_sig_ign.sa_mask);
@@ -51,7 +55,6 @@ void	execute_line(t_list *comm_list) // I need to pass fds here
 	t_list	**next_comm;
 
 	next_comm = &comm_list;
-	// if there's only one command, run it here, and if it's builtin, don't fork
 	inpipe = -1;
 	while (*next_comm)
 	{

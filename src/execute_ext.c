@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/20 18:21:08 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:43:21 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	execute_command(t_list *next_comm, int inpipe, t_list *comm_list)
 	t_comm	*comm;
 	int		pipes[2];
 
+    pipes[0];
 	comm = (t_comm *)((next_comm)->content);
 	comm->fdin = inpipe;
 	if ((next_comm)->next)
@@ -58,6 +59,7 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 		ft_clear_env();
 		exit(126);
 	}
+    // come back on 31/08
 	// open redirect files here
 	if (comm->fdout >= 0)
 		dup2(comm->fdout, 1);
