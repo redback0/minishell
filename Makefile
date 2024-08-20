@@ -6,7 +6,7 @@ NAME := minishell
 
 FILES := minishell	ft_env		ft_env_ext \
 		 signals	execute		execute_utils \
-		 parse_args	redirect
+		 parse_args	redirect	execute_ext \
 
 SRC_DIR := src/
 OBJ_DIR := obj/

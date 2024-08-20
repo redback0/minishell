@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/14 17:26:46 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:20:06 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_line(char *line)
+void	process_line(char *line)
 {
 	static int			status = 0;
 	struct sigaction	sa_sig_int;
@@ -23,7 +23,7 @@ void	execute_line(char *line)
 
 	comm_list = get_commands(line, status);
 	free(line);
-	execute_command(comm_list);
+	execute_line(comm_list);
 	sa_sig_ign.sa_handler = ms_sig_interupt_alt;
 	sigemptyset(&sa_sig_ign.sa_mask);
 	sa_sig_ign.sa_flags = 0;
@@ -41,69 +41,23 @@ void	execute_line(char *line)
 	sigaction(SIGINT, &sa_sig_int, NULL);
 }
 
-void	execute_command(t_list *comm_list) // I need to pass fds here
+void	execute_line(t_list *comm_list) // I need to pass fds here
 // exit codes:
 //  *command not found:			127
 //  *command not executable:	126
 //  *command execution failed:	126
 {
-	int		pipes[2];
+	int		inpipe;
 	t_list	**next_comm;
-	t_comm	*comm;
 
 	next_comm = &comm_list;
-	pipes[0] = -1;
+	// if there's only one command, run it here, and if it's builtin, don't fork
+	inpipe = -1;
 	while (*next_comm)
 	{
-		comm = (t_comm *)((*next_comm)->content);
-		comm->fdin = pipes[0];
-		if ((*next_comm)->next)
-		{
-			pipe(pipes);
-			comm->fdout = pipes[1];
-		}
-		comm->pid = fork();
-		if (comm->pid < 0)
-			printf("error: fork failed\n");
-		else if (comm->pid == 0)
-			execute_command_child(comm, comm_list);
-		if (comm->fdout >= 0)
-			close(comm->fdout);
-		if (comm->fdin >= 0)
-			close(comm->fdin);
+		inpipe = execute_command(*next_comm, inpipe, comm_list);
 		next_comm = &((*next_comm)->next);
 	}
-}
-
-void	execute_command_child(t_comm *comm, t_list *comm_list)
-{
-	char	**envp;
-	//char	*command;
-
-	if (0) // find command
-	{
-		ft_lstclear(&comm_list, free_command);
-		ft_clear_env();
-		exit(127);
-	}
-	if (access(comm->args[0], X_OK) != 0)
-	{
-		perror(comm->args[0]);
-		//free(command);
-		ft_lstclear(&comm_list, free_command);
-		ft_clear_env();
-		exit(126);
-	}
-	// open redirect files here
-	if (comm->fdout >= 0)
-		dup2(comm->fdout, 1);
-	if (comm->fdin >= 0)
-		dup2(comm->fdin, 0);
-	envp = ft_full_env();
-	execve(comm->args[0], comm->args, envp); // replace this with below
-	//execve(command, comm->args, envp);
-	perror(comm->args[0]);
-	exit(126);
 }
 
 /*

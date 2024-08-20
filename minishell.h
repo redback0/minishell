@@ -6,12 +6,19 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/14 17:26:21 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:17:32 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+
+
+# define _DEFAULT_SOURCE
+// this is here cause vs code complains -- remove later, it's not needed for compiling
+
+
 
 # include "libft.h"
 # include "ft_env.h"
@@ -45,11 +52,12 @@ typedef struct s_comm
 void		ms_exit(void);
 char		*get_prompt(void);
 void		shell_loop(void);
-void		execute_line(char *line);
+void		process_line(char *line);
 char		**shell_expand(t_list *args);
 void		finish_quote(const char *line, int *i);
 char		**ms_split(const char *line, char c);
-void		execute_command(t_list *comm_list);
+int			execute_command(t_list *next_comm, int inpipe, t_list *comm_list);
+void		execute_line(t_list *comm_list);
 void		execute_command_child(t_comm *comm, t_list *comm_list);
 void		find_redirects(t_comm *comm, char *line);
 void		variable_expand(char **argv, int status);
