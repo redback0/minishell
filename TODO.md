@@ -6,10 +6,10 @@
 - echo
 - cd
 - pwd
-- export
+- export // in bash, running with no args prints the whole environment, this doesn't appear to be a requirement in the evaluation sheet
 - unset
 - env
-- exit // need argument handling, correct the exit status + error message if argument is non-numeric
+- exit // needs to be changed to run as other builtins, correct the exit status + error message if argument is non-numeric
 
 ## Signals to handle
 
@@ -25,4 +25,4 @@
 - search the path for commands -- beth
 - open files for read/write -- beth
 - add the single command execute function, in execute.c -- beth
-- check how redirects act with builtins
+- check how redirects act with builtins // builtins do not fork with redirects, pass fds instead

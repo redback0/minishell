@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/31 14:08:48 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:36:51 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 		ft_clear_env();
 		exit(126);
 	}
-    // come back on 31/08
+	// come back on 31/08
 	// open redirect files here
 	if (comm->fdout >= 0)
 		dup2(comm->fdout, 1);

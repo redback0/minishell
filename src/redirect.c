@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/14 15:28:18 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:41:37 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,35 @@ static char	*redirect_word(char *line)
 	return (out);
 }
 
-void	find_redirects(t_comm *comm, char *line)
+void	set_redirect(t_comm *comm, char *line)
 {
 	char	*word;
+
+	word = redirect_word(line);
+	if (*line == '<')
+	{
+		if (comm->infile)
+			free(comm->infile);
+		comm->infile = word;
+		comm->is_heredoc = line[0] == line[1]; // potentially run heredoc here?
+	}
+	else
+	{
+		if (comm->outfile)
+			free(comm->outfile);
+		comm->outfile = word;
+		comm->is_append = line[0] == line[1];
+	}
+}
+
+void	find_redirects(t_comm *comm, char *line)
+{
 	int		i;
 
 	while (*line)
 	{
 		if (*line == '<' || *line == '>')
-		{
-			word = redirect_word(line);
-			if (*line == '<')
-			{
-				if (comm->infile)
-					free(comm->infile);
-				comm->infile = word;
-				comm->is_heredoc = line[0] == line[1];
-			}
-			else
-			{
-				if (comm->outfile)
-					free(comm->outfile);
-				comm->outfile = word;
-				comm->is_append = line[0] == line[1];
-			}
-		}
+			set_redirect(comm, line);
 		else if (*line == '\'' || *line == '"')
 		{
 			i = 0;

@@ -6,11 +6,27 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:53:45 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/03 15:26:42 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:15:46 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	get_var(char *argv, int *j, int status, char **var)
+{
+	*j = 0;
+	if (*argv == '?')
+	{
+		*var = ft_itoa(status);
+		++(*j);
+		return (1);
+	}
+	else if (!ft_isdigit(*argv))
+		while (ft_isalnum(argv[*j]) || argv[*j] == '_')
+			++(*j);
+	*var = ft_get_env(argv);
+	return (0);
+}
 
 static char	*add_var(char *argv, int *i, int status)
 {
@@ -19,21 +35,9 @@ static char	*add_var(char *argv, int *i, int status)
 	int		j;
 	int		alloced;
 
-	alloced = 0;
-	old_arg = argv;
-	j = 0;
-	if (!ft_isdigit(old_arg[*i]))
-		while (ft_isalnum((old_arg)[*i + j]) || (old_arg)[*i + j] == '_')
-			++j;
-	if (argv[*i] == '?')
-	{
-		var = ft_itoa(status);
-		alloced = 1;
-		++j;
-	}
-	else
-		var = ft_get_env(old_arg + *i);
+	alloced = get_var(argv + *i, &j, status, &var);
 	argv[*i - 1] = 0;
+	old_arg = argv;
 	argv = ft_strnjoin(3, old_arg, var, old_arg + *i + j);
 	free(old_arg);
 	*i += ft_strlen(var) - 1;
@@ -58,7 +62,9 @@ void	variable_expand(char **argv, int status)
 			if (!in_double_quotes && (*argv)[i] == '\'')
 				finish_quote(*argv, &i);
 			else if ((*argv)[i++] == '$')
+			{
 				*argv = add_var(*argv, &i, status);
+			}
 		}
 		++argv;
 	}
@@ -100,23 +106,4 @@ void	remove_quotes(char **argv)
 		}
 		++argv;
 	}
-}
-
-void	finish_quote(const char *line, int *i)
-{
-	int	s;
-
-	if (line[*i] != '\'' && line[*i] != '"')
-	{
-		++(*i);
-		return ;
-	}
-	s = *i;
-	++(*i);
-	while (line[*i] && line[*i] != line[s])
-		++(*i);
-	if (line[*i] != '\0')
-		++*i;
-	else
-		*i = s + 1;
 }

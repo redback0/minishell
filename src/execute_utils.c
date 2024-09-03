@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:42:38 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/12 17:19:19 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:15:43 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,23 @@ char	**ms_split(const char *line, char c)
 	}
 	out[count] = 0;
 	return (out);
+}
+
+void	finish_quote(const char *line, int *i)
+{
+	int	s;
+
+	if (line[*i] != '\'' && line[*i] != '"')
+	{
+		++(*i);
+		return ;
+	}
+	s = *i;
+	++(*i);
+	while (line[*i] && line[*i] != line[s])
+		++(*i);
+	if (line[*i] != '\0')
+		++*i;
+	else
+		*i = s + 1;
 }
