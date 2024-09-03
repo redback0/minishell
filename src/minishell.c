@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/20 18:00:57 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:40:28 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ void	ms_exit(void)
 
 void	shell_loop(void)
 {
+	int		status;
 	char	*prompt;
 	char	*line;
 
+	status = 0;
 	while (1)
 	{
 		prompt = get_prompt();
@@ -44,7 +46,7 @@ void	shell_loop(void)
 				free(line);
 				ms_exit();
 			}
-			process_line(line);
+			status = process_line(line, status);
 		}
 		else if (line)
 		{

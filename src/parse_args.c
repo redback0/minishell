@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:53:45 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/09 15:37:04 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:26:42 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ static char	*add_var(char *argv, int *i, int status)
 void	variable_expand(char **argv, int status)
 {
 	int		i;
+	int		in_double_quotes;
 
+	in_double_quotes = 0;
 	while (*argv)
 	{
 		i = 0;
 		while ((*argv)[i])
 		{
-			if ((*argv)[i] == '\'')
+			if ((*argv)[i] == '"')
+				in_double_quotes = !in_double_quotes;
+			if (!in_double_quotes && (*argv)[i] == '\'')
 				finish_quote(*argv, &i);
 			else if ((*argv)[i++] == '$')
 				*argv = add_var(*argv, &i, status);

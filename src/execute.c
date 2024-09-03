@@ -6,15 +6,14 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/20 18:42:01 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:38:53 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	process_line(char *line)
+int	process_line(char *line, int status)
 {
-	static int			status = 0;
 	struct sigaction	sa_sig_int;
 	struct sigaction	sa_sig_ign;
 	t_list				*comm_list;
@@ -43,6 +42,7 @@ void	process_line(char *line)
 	status = WEXITSTATUS(comm->raw_status);
 	ft_lstclear(&comm_list, free_command);
 	sigaction(SIGINT, &sa_sig_int, NULL);
+	return (status);
 }
 
 void	execute_line(t_list *comm_list) // I need to pass fds here

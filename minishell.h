@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/20 18:17:32 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:40:15 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_comm
 void		ms_exit(void);
 char		*get_prompt(void);
 void		shell_loop(void);
-void		process_line(char *line);
+int			process_line(char *line, int status);
 char		**shell_expand(t_list *args);
 void		finish_quote(const char *line, int *i);
 char		**ms_split(const char *line, char c);

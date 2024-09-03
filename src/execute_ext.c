@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/20 18:43:21 by njackson         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:08:48 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	execute_command(t_list *next_comm, int inpipe, t_list *comm_list)
 	t_comm	*comm;
 	int		pipes[2];
 
-    pipes[0];
+	pipes[0] = -1;
 	comm = (t_comm *)((next_comm)->content);
 	comm->fdin = inpipe;
 	if ((next_comm)->next)
@@ -69,7 +69,7 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	close(comm->fdin);
 	envp = ft_full_env();
 	execve(comm->args[0], comm->args, envp); // replace this with below
-											 //execve(command, comm->args, envp);
+	//execve(command, comm->args, envp);
 	perror(comm->args[0]);
 	exit(126);
 }
