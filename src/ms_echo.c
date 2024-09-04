@@ -6,7 +6,7 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 18:11:56 by beefie            #+#    #+#             */
-/*   Updated: 2024/09/04 19:23:29 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:57:12 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ms_echo(char **argv)
 
 	new = 0;
 	index = 1;
-	if (ft_strncmp(argv[1], "-n", 3) != 0)
+	if (ft_strncmp(argv[1], "-n", 3) == 0)
 	{
 		new = 1;
 		index++;
 	}
-	while (index)
+	while (argv[index] && argv[index + 1])
 	{
 		printf("%s ", argv[index]);
 		index++;
