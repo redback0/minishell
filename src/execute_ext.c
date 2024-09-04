@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 19:46:55 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:25:13 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 		ft_clear_env();
 		exit(127);
 	}
-	if (is_builtin(comm->args) == 1)
-		exit(execute_builtin(comm->args));
+	if (is_builtin(comm) == 1)
+		exit(execute_builtin(comm));
 	if (access(comm->args[0], X_OK) != 0)
 	{
 		perror(comm->args[0]);
@@ -81,33 +81,33 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	exit(126);
 }
 
-int	is_builtin(char **args)
+int	is_builtin(t_comm *comm)
 {
-	if ((ft_strncmp(args[0], "echo", -1) == 0)
-		|| (ft_strncmp(args[0], "cd", -1) == 0)
-		|| (ft_strncmp(args[0], "pwd", -1) == 0)
-		|| (ft_strncmp(args[0], "export", -1) == 0)
-		|| (ft_strncmp(args[0], "unset", -1) == 0)
-		|| (ft_strncmp(args[0], "env", -1) == 0))
+	if ((ft_strncmp(comm->args[0], "echo", -1) == 0)
+		|| (ft_strncmp(comm->args[0], "cd", -1) == 0)
+		|| (ft_strncmp(comm->args[0], "pwd", -1) == 0)
+		|| (ft_strncmp(comm->args[0], "export", -1) == 0)
+		|| (ft_strncmp(comm->args[0], "unset", -1) == 0)
+		|| (ft_strncmp(comm->args[0], "env", -1) == 0))
 		return (1);
 	else
 		return (0);
 }
 
-int	execute_builtin(char **argv)
+int	execute_builtin(t_comm *comm)
 {
-	if (ft_strncmp(argv[0], "echo", -1) == 0)
-		return (ms_echo(argv));
-	else if (ft_strncmp(argv[0], "cd", -1) == 0)
-		return (ms_cd(argv));
-	else if (ft_strncmp(argv[0], "pwd", -1) == 0)
-		return (ms_pwd(argv));
-//	else if (ft_strncmp(argv[0], "export", -1) == 0)
-//		return (ms_export(argv));
-//	else if (ft_strncmp(argv[0], "unset", -1) == 0)
-//		return (ms_unset(argv));
-	else if (ft_strncmp(argv[0], "env", -1) == 0)
-		return (ms_env(argv));
+	if (ft_strncmp(comm->args[0], "echo", -1) == 0)
+		return (ms_echo(comm->args));
+	else if (ft_strncmp(comm->args[0], "cd", -1) == 0)
+		return (ms_cd(comm->args));
+	else if (ft_strncmp(comm->args[0], "pwd", -1) == 0)
+		return (ms_pwd(comm->args));
+//	else if (ft_strncmp(comm->args[0], "export", -1) == 0)
+//		return (ms_export(comm->args));
+//	else if (ft_strncmp(comm->args[0], "unset", -1) == 0)
+//		return (ms_unset(comm->args));
+	else if (ft_strncmp(comm->args[0], "env", -1) == 0)
+		return (ms_env(comm->args));
 	else
 		return (127);
 }

@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 15:11:39 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:40:57 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 int	process_line(char *line, int status)
 {
-	struct sigaction	sa_sig_int;
-	struct sigaction	sa_sig_alt;
-	struct sigaction	sa_sig_quit;
 	t_list				*comm_list;
-	t_list				**next_comm;
-	t_comm				*comm;
 
 	comm_list = get_commands(line, status);
 	free(line);
-	// if there's only one command, run it here, and if it's builtin, don't fork
-	// if (ft_lstsize(comm_list) == 1)
-	// 		execute one line
-	// else (line below)
+	if (ft_lstsize(comm_list) == 1)
+		return(execute_single(comm_list, status));
 	execute_line(comm_list);
+	return(execute_wait(comm_list, status));
+}
+
+int	execute_wait(t_list *comm_list, int status)
+{
+	struct sigaction	sa_sig_int;
+	struct sigaction	sa_sig_alt;
+	struct sigaction	sa_sig_quit;
+	t_list				**next_comm;
+	t_comm				*comm;
+
 	sa_sig_alt.sa_handler = ms_sig_interupt_alt;
 	sigemptyset(&sa_sig_alt.sa_mask);
 	sa_sig_alt.sa_flags = 0;
@@ -49,6 +53,21 @@ int	process_line(char *line, int status)
 	sigaction(SIGINT, &sa_sig_int, NULL);
 	sigaction(SIGQUIT, &sa_sig_quit, NULL);
 	return (status);
+}
+
+int	execute_single(t_list *comm_list, int status)
+{
+	t_comm	*comm;
+
+	comm = (t_comm *)comm_list->content;
+	if (is_builtin(comm))
+	{
+		status = execute_builtin(comm);
+		ft_lstclear(&comm_list, free_command);
+		return (status);
+	}
+	execute_line(comm_list);
+	return(execute_wait(comm_list, status));
 }
 
 void	execute_line(t_list *comm_list) // I need to pass fds here
@@ -110,13 +129,4 @@ t_list	*get_commands(char *line, int status)
 	}
 	ft_split_free(comm_lines, free);
 	return (comm_list);
-}
-
-void	free_command(void *raw)
-{
-	t_comm *comm;
-
-	comm = (t_comm *)raw;
-	ft_split_free(comm->args, free);
-	free(comm);
 }

@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 19:32:28 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:30:08 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ char		**ms_split(const char *line, char c);
 int			execute_command(t_list *next_comm, int inpipe, t_list *comm_list);
 void		execute_line(t_list *comm_list);
 void		execute_command_child(t_comm *comm, t_list *comm_list);
+int			execute_single(t_list *comm_list, int status);
+int			execute_wait(t_list *comm_list, int status);
+
 void		find_redirects(t_comm *comm, char *line);
 void		variable_expand(char **argv, int status);
 void		remove_quotes(char **argv);
@@ -88,8 +91,8 @@ void		ms_sig_interupt_alt(int signo);
 
 // *********************** ASSIGNED TO BETH
 
-int			is_builtin(char **args);
-int			execute_builtin(char **argv);
+int			is_builtin(t_comm *comm);
+int			execute_builtin(t_comm *comm);
 
 char		*find_command(char *command);
 // returns allocated the absolute path of a given command, NULL if there's no
