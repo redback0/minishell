@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:30:59 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/05 18:16:33 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:55:03 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ void	ms_sig_interupt(int signo)
 
 void	ms_sig_interupt_alt(int signo)
 {
-	(void)signo;
-	printf("\n");
+	g_last_signal = signo;
+	if (signo == SIGINT)
+		printf("\n");
+	else if (signo == SIGQUIT)
+		printf("Quit\n");
 }
 
 void	init_signals(void)

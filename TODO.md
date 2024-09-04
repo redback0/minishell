@@ -14,15 +14,15 @@
 ## Signals to handle
 
 - ctrl-c // should be done
-- ctrl-d // should be done
-- ctrl-\ // change back when forked
+- ctrl-d // done. also, not a signal
+- ctrl-\ // should be done
 
 ## Other things
 
-- implement pipes (<, |, >, <<, >>) // should be done, almost
-- implement environment variables ($VAR) // broken in case of "'$USER'"
-- implement $? // where the status variable is will need to change
+- implement pipes (<, |, >, <<, >>) // requires the 'open files for read/write' part to be done
+- implement environment variables ($VAR) // should work in all cases; further testing should be done
+- implement $? // fully implemented, pass to ms_exit
 - search the path for commands -- beth
 - open files for read/write -- beth
 - add the single command execute function, in execute.c -- beth
-- check how redirects act with builtins // builtins do not fork with redirects, pass fds instead
+- check how redirects act with builtins // builtins do not fork with redirects, pass fds instead. this will be an easy change

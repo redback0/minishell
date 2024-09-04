@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/03 17:41:37 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:11:00 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*redirect_word(char *line)
 	return (out);
 }
 
-void	set_redirect(t_comm *comm, char *line)
+static void	set_redirect(t_comm *comm, char *line)
 {
 	char	*word;
 

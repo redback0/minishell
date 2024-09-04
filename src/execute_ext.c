@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/03 17:36:51 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:54:43 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,14 @@ int	execute_command(t_list *next_comm, int inpipe, t_list *comm_list)
 
 void	execute_command_child(t_comm *comm, t_list *comm_list)
 {
-	char	**envp;
+	struct sigaction	sa_sig_quit;
+	char				**envp;
 	//char	*command;
 
+	sa_sig_quit.sa_handler = SIG_DFL;
+	sigemptyset(&sa_sig_quit.sa_mask);
+	sa_sig_quit.sa_flags = 0;
+	sigaction(SIGQUIT, &sa_sig_quit, NULL);
 	if (0) // find command -- if (find_command(comm->args[0]))
 	{
 		ft_lstclear(&comm_list, free_command);

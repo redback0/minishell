@@ -6,11 +6,13 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/03 17:15:42 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:54:22 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_last_signal = 0;
 
 int	main(int ac, char *av[], char *envp[])
 {

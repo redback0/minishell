@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/03 15:40:15 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:50:14 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@
 
 // PS1 and SPLASH defined here
 # include "config.h"
+
+// in case that failed for whatever reason
+# ifndef PS1
+#  define PS1 "> "
+# endif
+
+# ifndef SPLASH
+#  define SPLASH ""
+# endif
+
+extern int	g_last_signal;
 
 typedef struct s_comm
 {
