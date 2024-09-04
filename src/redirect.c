@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 15:11:00 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:55:32 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,21 @@ void	find_redirects(t_comm *comm, char *line)
 			++line;
 	}
 }
+
+void	open_redir_files(t_comm *comm)
+{
+	if (comm->outfile)
+	{
+		close(comm->fdout);
+		if (comm->is_append == 1)
+			comm->fdout = open(comm->outfile, O_WRONLY | O_APPEND | O_CREAT, 0644);
+		else if (comm->is_append == 0)
+			comm->fdout = open(comm->outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	}
+	if (comm->infile)
+	{
+		close(comm->fdin);
+		if (comm->is_heredoc == 0)
+			comm->fdin = open(comm->infile, O_RDONLY);
+	}
+}	

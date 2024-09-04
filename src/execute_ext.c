@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 20:25:13 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:53:01 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 		ft_clear_env();
 		exit(127);
 	}
+	// open redirect files here
+	open_redir_files(comm);
 	if (is_builtin(comm) == 1)
 		exit(execute_builtin(comm));
 	if (access(comm->args[0], X_OK) != 0)
@@ -66,8 +68,6 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 		ft_clear_env();
 		exit(126);
 	}
-	// come back on 31/08
-	// open redirect files here
 	if (comm->fdout >= 0)
 		dup2(comm->fdout, 1);
 	if (comm->fdin >= 0)

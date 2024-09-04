@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 20:30:08 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:55:57 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char		*find_command(char *command);
 // returns allocated the absolute path of a given command, NULL if there's no
 // match. This will be called after checking for builtins
 
-int			open_redir_files(t_comm *comm);
+void		open_redir_files(t_comm *comm);
 // opens the files at infile and outfile, and sets the fds to comm->fdin and
 // fd->out.
 //  if comm->is_heredoc is 1, run heredoc instead.
