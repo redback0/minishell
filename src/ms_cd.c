@@ -6,7 +6,7 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 18:33:34 by beefie            #+#    #+#             */
-/*   Updated: 2024/09/04 19:27:04 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:08:24 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	ms_cd(char **argv)
 	int	index;
 
 	index = 0;
-	while (argv)
+	while (argv[index])
 		index++;
 	if (index > 2)
 	{
 		printf("%s\n", "Error : too many arguements");
 		return (1);
 	}
-	if (chdir(argv[2]) == -1)
+	if (chdir(argv[1]) == -1)
 	{
 		perror(argv[1]);
 		return (1);
