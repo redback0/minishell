@@ -6,13 +6,13 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 19:05:13 by beefie            #+#    #+#             */
-/*   Updated: 2024/08/13 18:51:23 by beefie           ###   ########.fr       */
+/*   Updated: 2024/09/04 18:35:58 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(char **argv)
+void	ms_pwd(char **argv)
 {
 	char	pwd[PATH_MAX];
 	

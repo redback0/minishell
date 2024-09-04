@@ -6,13 +6,13 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 18:11:56 by beefie            #+#    #+#             */
-/*   Updated: 2024/08/10 18:35:03 by beefie           ###   ########.fr       */
+/*   Updated: 2024/09/04 18:34:36 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(char **argv)
+void	ms_echo(char **argv)
 {
 	int	index;
 	int	new;
