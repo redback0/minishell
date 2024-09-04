@@ -6,16 +6,18 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 19:05:13 by beefie            #+#    #+#             */
-/*   Updated: 2024/09/04 19:07:57 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:33:16 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_pwd(char **argv)
+int	ms_pwd(char **argv)
 {
 	char	pwd[PATH_MAX];
 
+	(void)argv;
 	getcwd(pwd, PATH_MAX);
 	printf("%s\n", pwd);
+	return (0);
 }

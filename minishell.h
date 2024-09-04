@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 19:13:01 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:32:28 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@
 
 # ifndef SPLASH
 #  define SPLASH ""
+# endif
+
+// PATH_MAX, in case one didn't already exist
+# ifndef PATH_MAX
+#  define PATH_MAX 1024
 # endif
 
 extern int	g_last_signal;
@@ -82,6 +87,9 @@ void		ms_sig_interupt(int signo);
 void		ms_sig_interupt_alt(int signo);
 
 // *********************** ASSIGNED TO BETH
+
+int			is_builtin(char **args);
+int			execute_builtin(char **argv);
 
 char		*find_command(char *command);
 // returns allocated the absolute path of a given command, NULL if there's no
