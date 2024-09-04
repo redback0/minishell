@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/03 17:36:51 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:37:09 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 		exit(126);
 	}
 	// come back on 31/08
+	if (is_builtin(comm->args) == 1)
+		exit(execute_builtin(comm->args));
 	// open redirect files here
 	if (comm->fdout >= 0)
 		dup2(comm->fdout, 1);
@@ -72,4 +74,34 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	//execve(command, comm->args, envp);
 	perror(comm->args[0]);
 	exit(126);
+}
+
+int	is_builtin(char **args)
+{
+	if ((ft_strchr(args, echo, -1) == 1) || (ft_strchr(args, cd, -1) == 1))
+		return (1);
+	else if ((ft_strchr(args, pwd, -1) == 1) || (ft_strchr(args, export, -1) == 1))
+		return (1);
+	else if ((ft_strchr(args, unset, -1) == 1) || (ft_strchr(args, env, -1) == 1))
+		return (1);
+	else
+		return (0);
+}
+
+int	execute_builtin(char **argv)
+{
+	if (ft_strchr(arg, echo, -1) == 1)
+		return (ms_echo(argv));
+	else if (ft_strchr(arg, cd, -1) == 1)
+		return (ms_cd(argv));
+	else if (ft_strchr(arg, pwd, -1) == 1)
+		return (ms_pwd(argv));
+	else if (ft_strchr(arg, export, -1) == 1)
+		return (ms_export(argv));
+	else if (ft_strchr(arg, unset, -1) == 1)
+		return (ms_unset(argv));
+	else if (ft_strchr(arg, env, -1) == 1)
+		return (ms_env(argv));
+	else
+		return (127);
 }

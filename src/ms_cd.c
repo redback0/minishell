@@ -6,13 +6,13 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 18:33:34 by beefie            #+#    #+#             */
-/*   Updated: 2024/08/12 19:17:24 by beefie           ###   ########.fr       */
+/*   Updated: 2024/09/04 18:35:20 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd(char **argv)
+int	ms_cd(char **argv)
 {
 	int	index;
 	
