@@ -6,7 +6,7 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 19:05:13 by beefie            #+#    #+#             */
-/*   Updated: 2024/09/04 18:35:58 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:07:57 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ms_pwd(char **argv)
 {
 	char	pwd[PATH_MAX];
-	
+
 	getcwd(pwd, PATH_MAX);
-	printf("%s\n",pwd);
+	printf("%s\n", pwd);
 }

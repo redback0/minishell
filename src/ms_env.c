@@ -6,7 +6,7 @@
 /*   By: bmilford <bmilford@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 17:30:05 by bmilford          #+#    #+#             */
-/*   Updated: 2024/08/20 17:58:31 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:06:07 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ms_env(char **argv)
 		index++;
 	while (count <= index)
 	{
-		printf(env[count];
+		printf(env[count]);
 		count++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: bmilford <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:53:15 by bmilford          #+#    #+#             */
-/*   Updated: 2024/09/02 18:25:15 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:07:11 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ void	open_redir_files(t_comm *comm)
 	{
 		close(comm->fdin);
 		if (comm->is_heredoc == 1)
-			comm->fdin = open(comm->infile,)
+			comm->fdin = open(comm->infile,);
 		else if (comm->is_heredoc == 0)
-			comm->fdin = open(comm->infile, O_RDONLY)
+			comm->fdin = open(comm->infile, O_RDONLY);
 	}
-}
-	
+}	
