@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/07 17:46:15 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:50:25 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	// open redirect files here
 	open_redir_files(comm);
 	if (is_builtin(comm) == 1)
-		exit(execute_builtin(comm));
+		exit(execute_builtin_forked(comm, comm_list));
 	if (access(comm->args[0], X_OK) != 0)
 	{
 		perror(comm->args[0]);
@@ -133,7 +133,7 @@ int	execute_builtin_forked(t_comm *comm, t_list *comm_list)
 	close(comm->fdout);
 	close(comm->fdin);
 	execute = execute_builtin(comm);
-	ft_lstclear(comm_list, free_command);
+	ft_lstclear(&comm_list, free_command);
 	ft_clear_env();
 	return (execute);
 }

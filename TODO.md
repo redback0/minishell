@@ -4,11 +4,11 @@
 ## Commands to implement -- beth
 
 - echo
-- cd
-- pwd
+- cd // fix case with no args; should quit without doing anything
+- pwd // done
 - export // in bash, running with no args prints the whole environment, this doesn't appear to be a requirement in the evaluation sheet
 - unset
-- env
+- env // done
 - exit // needs to be changed to run as other builtins, correct the exit status + error message if argument is non-numeric
 
 ## Signals to handle
@@ -19,7 +19,7 @@
 
 ## Other things
 
-- implement pipes (<, |, >, <<, >>) // requires the 'open files for read/write' part to be done
+- implement pipes (<, |, >, <<, >>) // redirects need implementing
 - implement environment variables ($VAR) // should work in all cases; further testing should be done
 - implement $? // fully implemented, pass to ms_exit
 - search the path for commands -- beth

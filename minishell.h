@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 20:55:57 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:50:05 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ void		ms_sig_interupt_alt(int signo);
 // *********************** ASSIGNED TO BETH
 
 int			is_builtin(t_comm *comm);
+int			can_builtin_fork(t_comm *comm);
 int			execute_builtin(t_comm *comm);
+int			execute_builtin_forked(t_comm *comm, t_list *comm_list);
 
 char		*find_command(char *command);
 // returns allocated the absolute path of a given command, NULL if there's no
