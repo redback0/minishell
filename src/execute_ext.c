@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/07 17:50:25 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:21:19 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,3 @@ int	execute_builtin_forked(t_comm *comm, t_list *comm_list)
 	ft_clear_env();
 	return (execute);
 }
-	
-
-
-
