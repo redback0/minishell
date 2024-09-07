@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 20:53:01 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:26:10 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,3 +111,15 @@ int	execute_builtin(t_comm *comm)
 	else
 		return (127);
 }
+
+int	can_builtin_fork(t_comm *comm)
+{
+	if ((ft_strncmp(comm->args[0], "cd", -1) == 0)
+		|| (ft_strncmp(comm->args[0], "pwd", -1) == 0)
+		|| (ft_strncmp(comm->args[0], "env", -1) == 0))
+		return (1);
+	else
+		return (0);
+}
+
+
