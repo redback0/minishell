@@ -6,7 +6,7 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 18:33:34 by beefie            #+#    #+#             */
-/*   Updated: 2024/09/04 20:08:24 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:58:52 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	ms_cd(char **argv)
 	index = 0;
 	while (argv[index])
 		index++;
-	if (index > 2)
+	if (index != 2)
 	{
-		printf("%s\n", "Error : too many arguements");
+		printf("%s\n", "Error : Wrong number of arguements");
 		return (1);
 	}
 	if (chdir(argv[1]) == -1)
@@ -30,8 +30,5 @@ int	ms_cd(char **argv)
 		return (1);
 	}
 	else
-	{
-		//ft_set_env(PWD, );
 		return(0);
-	}
 }
