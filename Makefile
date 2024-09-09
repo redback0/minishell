@@ -27,7 +27,10 @@ DLIBS := libft
 LIBS := ft
 FLIBS := $(join $(addsuffix /lib, $(DLIBS)), $(addsuffix .a, $(LIBS)))
 
-LFLAGS := $(addprefix -L, $(DLIBS)) $(addprefix -l, $(LIBS)) -lreadline
+RL_INCL := /usr/local/opt/readline/include
+RL_LIB := /usr/local/opt/readline/lib
+
+LFLAGS := $(addprefix -L, $(DLIBS)) $(addprefix -l, $(LIBS)) -L$(RL_LIB) -lreadline
 
 # OS SPECIFICS
 UNAME := $(shell uname -s)
@@ -39,7 +42,7 @@ ifeq ($(UNAME),Linux)
 endif
 
 
-IFLAGS := -I. $(addprefix -I, $(DLIBS)) -Iinc -Iconfig -Idefault_config
+IFLAGS := -I. $(addprefix -I, $(DLIBS)) -Iinc -I$(RL_INCL) -Iconfig -Idefault_config
 
 #PREFIX/COLOUR VARIABLES
 C_GRAY := \033[1;30m
@@ -65,6 +68,7 @@ print:
 	@echo $(DLIBS)
 	@echo $(LIBS)
 	@echo $(FLIBS)
+	@echo $(OBJ_DIR)
 
 $(NAME): $(OBJ) $(FLIBS)
 	@printf "$(PREFIX) CREATING $(C_CYAN)$@$(NC)\n"
