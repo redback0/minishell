@@ -21,6 +21,7 @@ SRC := $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES)))
 OBJ := $(addsuffix .o, $(addprefix $(OBJ_DIR), $(FILES)))
 DEP := $(OBJ:.o=.d)
 DEBUG_OBJ := $(patsubst $(OBJ_DIR)%, $(DEBUG_DIR)%, $(OBJ))
+DEBUG_DEP := $(DEBUG_OBJ:.o=.d)
 
 DLIBS := libft
 LIBS := ft
@@ -78,6 +79,7 @@ $(FLIBS):
 	@$(MAKE) -C $(dir $@) --no-print-directory -s
 
 -include $(DEP)
+-include $(DEBUG_DEP)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	@printf "$(PREFIX) $(C_GRAY)COMPILING $(C_CYAN)$@$(NC)\n"
