@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/07 20:12:19 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:48:51 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ static void	set_redirect(t_comm *comm, char *line)
 		if (comm->infile)
 			free(comm->infile);
 		comm->infile = word;
-		comm->is_heredoc = is_double; // potentially run heredoc here?
+		if (is_double)
+			comm->fdin = here_doc(word);
+		comm->is_heredoc = is_double;
 	}
 	else
 	{
@@ -94,4 +96,22 @@ void	open_redir_files(t_comm *comm)
 		if (comm->is_heredoc == 0)
 			comm->fdin = open(comm->infile, O_RDONLY);
 	}
-}	
+}
+
+int	here_doc(char *word)
+{
+	char	*line;
+	int		pipefd[2];
+
+	pipe(pipefd);
+	line = getnextline(0);
+	while (ft_strncmp(line, word, -1) != 0)
+	{
+		write(pipefd[1], line, ft_strlen(line));
+		free(line);
+		line = getnextline(0);
+	}
+	free(line);
+	close(pipefd[1]);
+	return (pipefd[0]);
+}

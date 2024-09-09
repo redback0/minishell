@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 15:57:15 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:49:35 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void		open_redir_files(t_comm *comm);
 //  outfile can be truncate or append, depending on comm->is_append
 //  if comm->fdin and/or comm->fdout is >= 0, close them before setting.
 
+int			here_doc(char *word);
 // BUILTINS
 // will we need to give these env? or will we be able to use getenv
 // I think these will need to be more specific
