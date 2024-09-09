@@ -6,7 +6,7 @@
 /*   By: bmilford <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:23:31 by bmilford          #+#    #+#             */
-/*   Updated: 2024/09/07 21:21:48 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:56:03 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ int	find_command(t_comm *comm)
 	char	**path;
 	char	*check;
 	int		index;
-	char	command;
+	char	*command;
 
 	index = 0;
-	if ((comm->command[0] == "/") 
-		||(ft_strncmp("./", comm->command) == 0) 
-		|| (ft_strncmp("../", comm->command) == 0))
+	if ((comm->command[0][0] == '/') 
+		||(ft_strncmp("./", comm->args[0]) == 0) 
+		|| (ft_strncmp("../", comm->args[0]) == 0))
+	{
+		comm->command = comm->args[0]
 		return (1);
+	}
 	if (is_builtin(comm) == 1)
 		return (1)
-	command = strjoin("/", comm->command);
+	command = strjoin("/", comm->args[0]);
 	path = ft_split(ft_get_env(), ':');
 	while (path[index])
 	{
