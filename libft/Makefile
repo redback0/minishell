@@ -23,7 +23,7 @@ SRC = ft_atoi.c			ft_bzero.c			ft_calloc.c \
 	  ft_lstadd_back.c	ft_lstadd_front.c	ft_lstclear.c \
 	  ft_lstdelone.c	ft_lstiter.c		ft_lstlast.c \
 	  ft_lstmap.c		ft_lstnew.c			ft_lstsize.c \
-	  ft_abs.c \
+	  ft_abs.c			get_next_line.c \
 	  ft_arrmax.c		ft_arrmin.c			ft_atoi_strict.c \
 	  ft_log_base_n.c	ft_memswap.c \
 	  ft_split_free.c	ft_min.c			ft_max.c \

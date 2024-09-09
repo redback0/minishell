@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 16:48:51 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:51:57 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,12 @@ int	here_doc(char *word)
 	int		pipefd[2];
 
 	pipe(pipefd);
-	line = getnextline(0);
+	line = get_next_line(0);
 	while (ft_strncmp(line, word, -1) != 0)
 	{
 		write(pipefd[1], line, ft_strlen(line));
 		free(line);
-		line = getnextline(0);
+		line = get_next_line(0);
 	}
 	free(line);
 	close(pipefd[1]);

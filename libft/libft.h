@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:30:22 by njackson          #+#    #+#             */
-/*   Updated: 2024/08/07 16:26:59 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:54:44 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ int				ft_log(int level, const char *format, ...);
 // GET NEXT LINE THINGS
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 256
+# endif
+
+# ifndef NUM_FD
+#  define NUM_FD 256
+// get next line won't be usable if you open more than 253 files
 # endif
 
 typedef struct s_sav
