@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 13:01:05 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:45:28 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	sigemptyset(&sa_sig_quit.sa_mask);
 	sa_sig_quit.sa_flags = 0;
 	sigaction(SIGQUIT, &sa_sig_quit, NULL);
-	if (0) // find command -- if (find_command(comm))
+	if (find_command(comm))
 	{
 		ft_lstclear(&comm_list, free_command);
 		ft_clear_env();
@@ -63,7 +63,6 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	if (access(comm->args[0], X_OK) != 0)
 	{
 		perror(comm->args[0]);
-		//free(command);
 		ft_lstclear(&comm_list, free_command);
 		ft_clear_env();
 		exit(126);
@@ -75,8 +74,7 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	close(comm->fdout);
 	close(comm->fdin);
 	envp = ft_full_env();
-	execve(comm->args[0], comm->args, envp); // replace this with below
-	//execve(command, comm->args, envp);
+	execve(comm->command, comm->args, envp);
 	perror(comm->args[0]);
 	exit(126);
 }
