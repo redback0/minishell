@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 14:54:22 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:39:28 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*get_prompt(void)
 			if (PS1[++j] == 'p')
 			{
 				getcwd(prompt + i, size - i);
-				i = strlen(prompt);
+				i = ft_strlen(prompt);
 			}
 			j++;
 		}

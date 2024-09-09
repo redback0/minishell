@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 15:45:28 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:08:09 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	sigemptyset(&sa_sig_quit.sa_mask);
 	sa_sig_quit.sa_flags = 0;
 	sigaction(SIGQUIT, &sa_sig_quit, NULL);
-	if (find_command(comm))
+	if (!find_command(comm))
 	{
+		printf("Command not found: %s\n", comm->args[0]);
 		ft_lstclear(&comm_list, free_command);
 		ft_clear_env();
 		exit(127);
@@ -60,9 +61,9 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	open_redir_files(comm);
 	if (is_builtin(comm) == 1)
 		exit(execute_builtin_forked(comm, comm_list));
-	if (access(comm->args[0], X_OK) != 0)
+	if (access(comm->command, X_OK) != 0)
 	{
-		perror(comm->args[0]);
+		perror(comm->command);
 		ft_lstclear(&comm_list, free_command);
 		ft_clear_env();
 		exit(126);
