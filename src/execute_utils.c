@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:42:38 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 20:13:10 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:02:41 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	finish_quote(const char *line, int *i)
 
 void	free_command(void *raw)
 {
-	t_comm *comm;
+	t_comm	*comm;
 
 	comm = (t_comm *)raw;
 	ft_split_free(comm->args, free);

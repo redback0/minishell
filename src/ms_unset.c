@@ -6,11 +6,12 @@
 /*   By: bmilford <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:25:56 by bmilford          #+#    #+#             */
-/*   Updated: 2024/09/09 16:33:16 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:06:37 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 int	ms_unset(char **argv)
 {
 	int	index;

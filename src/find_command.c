@@ -6,7 +6,7 @@
 /*   By: bmilford <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:23:31 by bmilford          #+#    #+#             */
-/*   Updated: 2024/09/09 16:00:56 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:07:25 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	find_command(t_comm *comm)
 	{
 		check = ft_strjoin(path[index], command);
 		if (access(check, F_OK) == 0)
-		{	
+		{
 			ft_split_free(path, free);
 			free(command);
 			comm->command = check;

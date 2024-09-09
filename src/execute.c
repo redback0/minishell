@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 16:35:28 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:05:14 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	process_line(char *line, int status)
 	comm_list = get_commands(line, status);
 	free(line);
 	if (ft_lstsize(comm_list) == 1)
-		return(execute_single(comm_list, status));
+		return (execute_single(comm_list, status));
 	execute_line(comm_list);
-	return(execute_wait(comm_list, status));
+	return (execute_wait(comm_list, status));
 }
 
 int	execute_wait(t_list *comm_list, int status)
@@ -67,7 +67,7 @@ int	execute_single(t_list *comm_list, int status)
 		return (status);
 	}
 	execute_line(comm_list);
-	return(execute_wait(comm_list, status));
+	return (execute_wait(comm_list, status));
 }
 
 void	execute_line(t_list *comm_list) // I need to pass fds here
