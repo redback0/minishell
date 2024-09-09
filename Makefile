@@ -8,10 +8,9 @@ FILES := minishell	ft_env		ft_env_ext \
 		 signals	execute		execute_utils \
 		 parse_args	redirect	execute_ext \
 		 ms_echo	ms_cd		ms_pwd \
-		 ms_env \
+		 ms_export	ms_unset	ms_env \
 		 execute_builtin		find_command \
 
-#		 ms_export	ms_unset	
 
 SRC_DIR := src/
 OBJ_DIR := obj/

@@ -6,7 +6,7 @@
 /*   By: bmilford <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:25:56 by bmilford          #+#    #+#             */
-/*   Updated: 2024/09/09 16:29:59 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:33:16 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ms_unset(char **argv)
 	index = 0;
 	while (argv[index])
 	{
-		ft_unset_env(argv[index])
+		ft_unset_env(argv[index]);
 		index++;
 	}
 	return (0);

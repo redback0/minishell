@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:44:58 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 16:31:50 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:35:07 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_builtin(t_comm *comm)
 
 int	can_builtin_fork(t_comm *comm)
 {
-	if ((ft_strncmp(comm->args[0], "cd", -1) == 0)
+	if ((ft_strncmp(comm->args[0], "echo", -1) == 0)
 		|| (ft_strncmp(comm->args[0], "pwd", -1) == 0)
 		|| (ft_strncmp(comm->args[0], "env", -1) == 0))
 		return (1);

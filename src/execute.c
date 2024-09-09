@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/07 17:28:44 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:35:28 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	execute_single(t_list *comm_list, int status)
 	t_comm	*comm;
 
 	comm = (t_comm *)comm_list->content;
-	if (can_builtin_fork(comm))
+	if (!can_builtin_fork(comm))
 	{
 		status = execute_builtin(comm);
 		ft_lstclear(&comm_list, free_command);
