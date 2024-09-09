@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:44:58 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/07 20:45:34 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:31:50 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	execute_builtin(t_comm *comm)
 		return (ms_cd(comm->args));
 	else if (ft_strncmp(comm->args[0], "pwd", -1) == 0)
 		return (ms_pwd(comm->args));
-//	else if (ft_strncmp(comm->args[0], "export", -1) == 0)
-//		return (ms_export(comm->args));
-//	else if (ft_strncmp(comm->args[0], "unset", -1) == 0)
-//		return (ms_unset(comm->args));
+	else if (ft_strncmp(comm->args[0], "export", -1) == 0)
+		return (ms_export(comm->args));
+	else if (ft_strncmp(comm->args[0], "unset", -1) == 0)
+		return (ms_unset(comm->args));
 	else if (ft_strncmp(comm->args[0], "env", -1) == 0)
 		return (ms_env(comm->args));
 	else
