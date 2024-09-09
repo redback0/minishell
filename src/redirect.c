@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 16:51:57 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:46:25 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,22 @@ static void	set_redirect(t_comm *comm, char *line)
 {
 	char	*word;
 	int		is_double;
+	int		is_input;
 
 	is_double = line[0] == line[1];
+	is_input = *line == '<';
 	word = redirect_word(line);
-	if (*line == '<')
+	if (is_input)
 	{
 		if (comm->infile)
 			free(comm->infile);
-		comm->infile = word;
 		if (is_double)
+		{
+			comm->infile = 0;
 			comm->fdin = here_doc(word);
-		comm->is_heredoc = is_double;
+		}
+		else
+			comm->infile = word;
 	}
 	else
 	{
@@ -102,10 +107,12 @@ int	here_doc(char *word)
 {
 	char	*line;
 	int		pipefd[2];
+	int		word_len;
 
+	word_len = ft_strlen(word);
 	pipe(pipefd);
 	line = get_next_line(0);
-	while (ft_strncmp(line, word, -1) != 0)
+	while (line && ft_strncmp(line, word, word_len) != 0 && line[word_len])
 	{
 		write(pipefd[1], line, ft_strlen(line));
 		free(line);

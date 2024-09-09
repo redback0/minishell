@@ -19,9 +19,9 @@
 
 ## Other things
 
-- implement pipes (<, |, >, <<, >>) // done, except heredoc
+- implement pipes (<, |, >, <<, >>) // done, testing required
 - implement environment variables ($VAR) // should work in all cases; further testing should be done
 - implement $? // fully implemented, pass to ms_exit
-- search the path for commands -- beth
-- open files for read/write -- beth // done, except heredoc
+- search the path for commands -- beth // done, testing will happen naturally
+- open files for read/write -- beth // done, testing required
 - add the single command execute function, in execute.c -- beth // done

@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 17:05:14 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:28:11 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	execute_single(t_list *comm_list, int status)
 	t_comm	*comm;
 
 	comm = (t_comm *)comm_list->content;
-	if (!can_builtin_fork(comm))
+	if (is_builtin(comm) && !can_builtin_fork(comm))
 	{
 		status = execute_builtin(comm);
 		ft_lstclear(&comm_list, free_command);
@@ -117,12 +117,12 @@ t_list	*get_commands(char *line, int status)
 	{
 		comm = malloc(sizeof(*comm));
 		ft_bzero(comm, sizeof(*comm));
+		comm->fdin = -1;
+		comm->fdout = -1;
 		find_redirects(comm, comm_lines[i]);
 		comm->args = ms_split(comm_lines[i], ' ');
 		variable_expand(comm->args, status);
 		remove_quotes(comm->args);
-		comm->fdin = -1;
-		comm->fdout = -1;
 		*end_comm_list = ft_lstnew(comm);
 		end_comm_list = &((*end_comm_list)->next);
 		++i;
