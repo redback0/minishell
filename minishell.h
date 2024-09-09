@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/07 20:29:17 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:57:15 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			can_builtin_fork(t_comm *comm);
 int			execute_builtin(t_comm *comm);
 int			execute_builtin_forked(t_comm *comm, t_list *comm_list);
 
-char		*find_command(char *command);
+int			find_command(t_comm *command);
 // returns allocated the absolute path of a given command, NULL if there's no
 // match. This will be called after checking for builtins
 
