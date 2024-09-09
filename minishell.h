@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/07 17:50:05 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:29:17 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ extern int	g_last_signal;
 
 typedef struct s_comm
 {
+	char	*command;
 	char	**args;
 	char	*infile;
 	char	*outfile;

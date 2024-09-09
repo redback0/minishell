@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/07 17:50:25 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:44:56 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	sigemptyset(&sa_sig_quit.sa_mask);
 	sa_sig_quit.sa_flags = 0;
 	sigaction(SIGQUIT, &sa_sig_quit, NULL);
-	if (0) // find command -- if (find_command(comm->args[0]))
+	if (0) // find command -- if (find_command(comm))
 	{
 		ft_lstclear(&comm_list, free_command);
 		ft_clear_env();
@@ -80,64 +80,3 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	perror(comm->args[0]);
 	exit(126);
 }
-
-int	is_builtin(t_comm *comm)
-{
-	if ((ft_strncmp(comm->args[0], "echo", -1) == 0)
-		|| (ft_strncmp(comm->args[0], "cd", -1) == 0)
-		|| (ft_strncmp(comm->args[0], "pwd", -1) == 0)
-		|| (ft_strncmp(comm->args[0], "export", -1) == 0)
-		|| (ft_strncmp(comm->args[0], "unset", -1) == 0)
-		|| (ft_strncmp(comm->args[0], "env", -1) == 0))
-		return (1);
-	else
-		return (0);
-}
-
-int	execute_builtin(t_comm *comm)
-{
-	if (ft_strncmp(comm->args[0], "echo", -1) == 0)
-		return (ms_echo(comm->args));
-	else if (ft_strncmp(comm->args[0], "cd", -1) == 0)
-		return (ms_cd(comm->args));
-	else if (ft_strncmp(comm->args[0], "pwd", -1) == 0)
-		return (ms_pwd(comm->args));
-//	else if (ft_strncmp(comm->args[0], "export", -1) == 0)
-//		return (ms_export(comm->args));
-//	else if (ft_strncmp(comm->args[0], "unset", -1) == 0)
-//		return (ms_unset(comm->args));
-	else if (ft_strncmp(comm->args[0], "env", -1) == 0)
-		return (ms_env(comm->args));
-	else
-		return (127);
-}
-
-int	can_builtin_fork(t_comm *comm)
-{
-	if ((ft_strncmp(comm->args[0], "cd", -1) == 0)
-		|| (ft_strncmp(comm->args[0], "pwd", -1) == 0)
-		|| (ft_strncmp(comm->args[0], "env", -1) == 0))
-		return (1);
-	else
-		return (0);
-}
-
-int	execute_builtin_forked(t_comm *comm, t_list *comm_list)
-{
-	int	execute;
-
-	if (comm->fdout >= 0)
-		dup2(comm->fdout, 1);
-	if (comm->fdin >= 0)
-		dup2(comm->fdin, 0);
-	close(comm->fdout);
-	close(comm->fdin);
-	execute = execute_builtin(comm);
-	ft_lstclear(&comm_list, free_command);
-	ft_clear_env();
-	return (execute);
-}
-	
-
-
-

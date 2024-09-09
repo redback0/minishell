@@ -19,10 +19,9 @@
 
 ## Other things
 
-- implement pipes (<, |, >, <<, >>) // redirects need implementing
+- implement pipes (<, |, >, <<, >>) // done, except heredoc
 - implement environment variables ($VAR) // should work in all cases; further testing should be done
 - implement $? // fully implemented, pass to ms_exit
 - search the path for commands -- beth
-- open files for read/write -- beth
-- add the single command execute function, in execute.c -- beth
-- check how redirects act with builtins // builtins do not fork with redirects, pass fds instead. this will be an easy change
+- open files for read/write -- beth // done, except heredoc
+- add the single command execute function, in execute.c -- beth // done

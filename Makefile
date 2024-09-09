@@ -9,6 +9,7 @@ FILES := minishell	ft_env		ft_env_ext \
 		 parse_args	redirect	execute_ext \
 		 ms_echo	ms_cd		ms_pwd \
 		 ms_env \
+		 execute_builtin \
 
 #		 ms_export	ms_unset	
 

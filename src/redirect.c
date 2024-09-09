@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/04 20:55:32 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:12:19 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,23 @@ static char	*redirect_word(char *line)
 static void	set_redirect(t_comm *comm, char *line)
 {
 	char	*word;
+	int		is_double;
 
+	is_double = line[0] == line[1];
 	word = redirect_word(line);
 	if (*line == '<')
 	{
 		if (comm->infile)
 			free(comm->infile);
 		comm->infile = word;
-		comm->is_heredoc = line[0] == line[1]; // potentially run heredoc here?
+		comm->is_heredoc = is_double; // potentially run heredoc here?
 	}
 	else
 	{
 		if (comm->outfile)
 			free(comm->outfile);
 		comm->outfile = word;
-		comm->is_append = line[0] == line[1];
+		comm->is_append = is_double;
 	}
 }
 
