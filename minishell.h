@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/11 16:08:13 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:09:49 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int			process_line(char *line, int status);
 char		**shell_expand(t_list *args);
 void		finish_quote(const char *line, int *i);
 char		**ms_split(const char *line, char c);
-int			execute_command(t_list *next_comm, int inpipe, t_list *comm_list, int status);
+int			execute_command(t_list *next_comm, int inpipe,
+				t_list *comm_list, int status);
 void		execute_line(t_list *comm_list, int status);
 void		execute_command_child(t_comm *comm, t_list *comm_list, int status);
 int			execute_single(t_list *comm_list, int status);
