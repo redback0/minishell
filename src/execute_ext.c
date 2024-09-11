@@ -6,11 +6,13 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 18:27:52 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:26:17 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	execute_command_child_ext(t_comm *comm);
 
 int	execute_command(t_list *next_comm, int inpipe,
 	t_list *comm_list, int status)
@@ -37,18 +39,14 @@ int	execute_command(t_list *next_comm, int inpipe,
 		close(pipes[0]);
 		execute_command_child(comm, comm_list, status);
 	}
-	if (comm->fdout >= 0)
-		close(comm->fdout);
-	if (comm->fdin >= 0)
-		close(comm->fdin);
+	close(comm->fdout);
+	close(comm->fdin);
 	return (pipes[0]);
 }
 
 void	execute_command_child(t_comm *comm, t_list *comm_list, int signal)
 {
 	struct sigaction	sa_sig_quit;
-	char				**envp;
-	//char	*command;
 
 	sa_sig_quit.sa_handler = SIG_DFL;
 	sigemptyset(&sa_sig_quit.sa_mask);
@@ -61,7 +59,6 @@ void	execute_command_child(t_comm *comm, t_list *comm_list, int signal)
 		ft_clear_env();
 		exit(127);
 	}
-	// open redirect files here
 	open_redir_files(comm);
 	if (is_builtin(comm) == 1)
 		exit(execute_builtin_forked(comm, comm_list, signal));
@@ -72,6 +69,13 @@ void	execute_command_child(t_comm *comm, t_list *comm_list, int signal)
 		ft_clear_env();
 		exit(126);
 	}
+	execute_command_child_ext(comm);
+}
+
+static void	execute_command_child_ext(t_comm *comm)
+{
+	char	**envp;
+
 	if (comm->fdout >= 0)
 		dup2(comm->fdout, 1);
 	if (comm->fdin >= 0)
