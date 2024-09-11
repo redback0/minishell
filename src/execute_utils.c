@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 14:42:38 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 18:15:28 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:20:10 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ void	free_command(void *raw)
 	comm = (t_comm *)raw;
 	if (comm->command && comm->command != comm->args[0])
 		free(comm->command);
+	free(comm->infile);
+	free(comm->outfile);
 	ft_split_free(comm->args, free);
 	free(comm);
 }

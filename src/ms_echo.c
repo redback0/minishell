@@ -6,7 +6,7 @@
 /*   By: beefie <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 18:11:56 by beefie            #+#    #+#             */
-/*   Updated: 2024/09/04 19:57:12 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:57:27 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ms_echo(char **argv)
 	}
 	if (new == 0)
 		printf("%s\n", argv[index]);
-	else
+	else if (argv[index])
 		printf("%s", argv[index]);
 	return (0);
 }
