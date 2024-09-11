@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/11 16:09:49 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:11:24 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void		reverse_pipe(int infd, int outfd);
 void		init_signals(void);
 void		ms_sig_interupt(int signo);
 void		ms_sig_interupt_alt(int signo);
+void		swap_signal_for_execute(void);
 
 // *********************** ASSIGNED TO BETH
 

@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 18:27:27 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:08:56 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,10 @@ int	process_line(char *line, int status)
 
 int	execute_wait(t_list *comm_list, int status)
 {
-	struct sigaction	sa_sig_int;
-	struct sigaction	sa_sig_alt;
-	struct sigaction	sa_sig_quit;
 	t_list				**next_comm;
 	t_comm				*comm;
 
-	sa_sig_alt.sa_handler = ms_sig_interupt_alt;
-	sigemptyset(&sa_sig_alt.sa_mask);
-	sa_sig_alt.sa_flags = 0;
-	sigaction(SIGINT, &sa_sig_alt, &sa_sig_int);
-	sigaction(SIGQUIT, &sa_sig_alt, &sa_sig_quit);
+	swap_signal_for_execute();
 	g_last_signal = 0;
 	next_comm = &comm_list;
 	while (*next_comm)
@@ -55,8 +48,7 @@ int	execute_wait(t_list *comm_list, int status)
 	if (g_last_signal)
 		status = g_last_signal + 128;
 	ft_lstclear(&comm_list, free_command);
-	sigaction(SIGINT, &sa_sig_int, NULL);
-	sigaction(SIGQUIT, &sa_sig_quit, NULL);
+	swap_signal_for_execute();
 	return (status);
 }
 
