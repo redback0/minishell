@@ -6,7 +6,7 @@
 /*   By: bmilford <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:23:31 by bmilford          #+#    #+#             */
-/*   Updated: 2024/09/09 17:07:25 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:22:46 by bmilford         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ int	find_command(t_comm *comm)
 	if (is_builtin(comm) == 1)
 		return (1);
 	command = ft_strjoin("/", comm->args[0]);
+	path = ft_split(ft_get_env("PATH"), ':');
+	if (is_path(check, command) == 1)
+		return (1);
+	return (0);
+}
+
+void	is_path(char *check, char *command)
+{
+	int		index;
+	char	**path;
+
+	index = 0;
 	path = ft_split(ft_get_env("PATH"), ':');
 	while (path[index])
 	{
