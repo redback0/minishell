@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/11 16:27:18 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:36:52 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ static void	set_redirect(t_comm *comm, char *line)
 	{
 		if (comm->infile)
 			free(comm->infile);
+		comm->infile = 0;
 		if (is_double)
-		{
-			comm->infile = 0;
 			comm->fdin = here_doc(word);
-		}
 		else
 			comm->infile = word;
 	}
