@@ -6,13 +6,14 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:02:16 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 16:50:51 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:27:52 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_command(t_list *next_comm, int inpipe, t_list *comm_list)
+int	execute_command(t_list *next_comm, int inpipe,
+	t_list *comm_list, int status)
 {
 	t_comm	*comm;
 	int		pipes[2];
@@ -34,7 +35,7 @@ int	execute_command(t_list *next_comm, int inpipe, t_list *comm_list)
 	else if (comm->pid == 0)
 	{
 		close(pipes[0]);
-		execute_command_child(comm, comm_list);
+		execute_command_child(comm, comm_list, status);
 	}
 	if (comm->fdout >= 0)
 		close(comm->fdout);
@@ -43,7 +44,7 @@ int	execute_command(t_list *next_comm, int inpipe, t_list *comm_list)
 	return (pipes[0]);
 }
 
-void	execute_command_child(t_comm *comm, t_list *comm_list)
+void	execute_command_child(t_comm *comm, t_list *comm_list, int signal)
 {
 	struct sigaction	sa_sig_quit;
 	char				**envp;
@@ -63,7 +64,7 @@ void	execute_command_child(t_comm *comm, t_list *comm_list)
 	// open redirect files here
 	open_redir_files(comm);
 	if (is_builtin(comm) == 1)
-		exit(execute_builtin_forked(comm, comm_list));
+		exit(execute_builtin_forked(comm, comm_list, signal));
 	if (access(comm->command, X_OK) != 0)
 	{
 		perror(comm->command);

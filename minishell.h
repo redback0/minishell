@@ -6,19 +6,12 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:26:43 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 16:49:35 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:31:17 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-
-
-# define _DEFAULT_SOURCE
-// this is here cause vs code complains -- remove later, it's not needed for compiling
-
-
 
 # include "libft.h"
 # include "ft_env.h"
@@ -66,16 +59,17 @@ typedef struct s_comm
 	int		raw_status;
 }	t_comm;
 
-void		ms_exit(void);
+int			ms_exit(char **av, int status);
 char		*get_prompt(void);
 void		shell_loop(void);
 int			process_line(char *line, int status);
 char		**shell_expand(t_list *args);
 void		finish_quote(const char *line, int *i);
 char		**ms_split(const char *line, char c);
-int			execute_command(t_list *next_comm, int inpipe, t_list *comm_list);
-void		execute_line(t_list *comm_list);
-void		execute_command_child(t_comm *comm, t_list *comm_list);
+int			execute_command(t_list *next_comm, int inpipe, t_list *comm_list,
+	int status);
+void		execute_line(t_list *comm_list, int status);
+void		execute_command_child(t_comm *comm, t_list *comm_list, int status);
 int			execute_single(t_list *comm_list, int status);
 int			execute_wait(t_list *comm_list, int status);
 
@@ -94,8 +88,8 @@ void		ms_sig_interupt_alt(int signo);
 
 int			is_builtin(t_comm *comm);
 int			can_builtin_fork(t_comm *comm);
-int			execute_builtin(t_comm *comm);
-int			execute_builtin_forked(t_comm *comm, t_list *comm_list);
+int			execute_builtin(t_comm *comm, int signal);
+int			execute_builtin_forked(t_comm *comm, t_list *comm_list, int signal);
 
 int			find_command(t_comm *command);
 // returns allocated the absolute path of a given command, NULL if there's no

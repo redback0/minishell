@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:01:53 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 13:39:28 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:41:29 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,30 @@ int	main(int ac, char *av[], char *envp[])
 	shell_loop();
 }
 
-void	ms_exit(void)
+int	ms_exit(char **av, int status)
 {
+	int	exit_status;
+	int	err;
+
+	err = 0;
+	exit_status = status;
 	printf("exit\n");
+	if (av && av[1])
+	{
+		exit_status = ft_atoi_strict(av[1], &err);
+		if (err)
+		{
+			printf("exit: %s: numeric argument required\n", av[1]);
+			exit_status = 2;
+		}
+		else if (av[2])
+		{
+			printf("exit: too many arguments\n");
+			return (2);
+		}
+	}
 	ft_clear_env();
-	exit(0);
+	exit(exit_status);
 }
 
 void	shell_loop(void)
@@ -44,17 +63,12 @@ void	shell_loop(void)
 		if (line && *line)
 		{
 			add_history(line);
-			if (ft_strncmp(line, "exit", 5) == 0)
-			{
-				free(line);
-				ms_exit();
-			}
 			status = process_line(line, status);
 		}
 		else if (line)
 			free(line);
 		else
-			ms_exit();
+			ms_exit(NULL, status);
 	}
 }
 

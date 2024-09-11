@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42adel.org.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:13:13 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 17:28:11 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:27:27 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ int	process_line(char *line, int status)
 
 	comm_list = get_commands(line, status);
 	free(line);
+	if (!((t_comm *)(comm_list->content))->args[0])
+	{
+		ft_lstclear(&comm_list, free_command);
+		return (status);
+	}
 	if (ft_lstsize(comm_list) == 1)
 		return (execute_single(comm_list, status));
-	execute_line(comm_list);
+	execute_line(comm_list, status);
 	return (execute_wait(comm_list, status));
 }
 
@@ -62,15 +67,15 @@ int	execute_single(t_list *comm_list, int status)
 	comm = (t_comm *)comm_list->content;
 	if (is_builtin(comm) && !can_builtin_fork(comm))
 	{
-		status = execute_builtin(comm);
+		status = execute_builtin(comm, status);
 		ft_lstclear(&comm_list, free_command);
 		return (status);
 	}
-	execute_line(comm_list);
+	execute_line(comm_list, status);
 	return (execute_wait(comm_list, status));
 }
 
-void	execute_line(t_list *comm_list) // I need to pass fds here
+void	execute_line(t_list *comm_list, int status) // I need to pass fds here
 // exit codes:
 //  *command not found:			127
 //  *command not executable:	126
@@ -83,7 +88,7 @@ void	execute_line(t_list *comm_list) // I need to pass fds here
 	inpipe = -1;
 	while (*next_comm)
 	{
-		inpipe = execute_command(*next_comm, inpipe, comm_list);
+		inpipe = execute_command(*next_comm, inpipe, comm_list, status);
 		next_comm = &((*next_comm)->next);
 	}
 }

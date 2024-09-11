@@ -6,7 +6,7 @@
 /*   By: bmilford <bmilford@student.42adel.o>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 17:30:05 by bmilford          #+#    #+#             */
-/*   Updated: 2024/09/07 16:45:56 by bmilford         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:49:14 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int	ms_env(char **argv)
 		printf("%s\n", env[index]);
 		index++;
 	}
+	ft_split_free(env, free);
 	return (0);
 }

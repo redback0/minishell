@@ -6,7 +6,7 @@
 /*   By: njackson <njackson@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:54:18 by njackson          #+#    #+#             */
-/*   Updated: 2024/09/09 17:46:25 by njackson         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:12:37 by njackson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,15 @@ int	here_doc(char *word)
 	word_len = ft_strlen(word);
 	pipe(pipefd);
 	line = get_next_line(0);
-	while (line && ft_strncmp(line, word, word_len) != 0 && line[word_len])
+	while (line && !(ft_strncmp(line, word, word_len) == 0
+			&& line[word_len] == '\n'))
 	{
 		write(pipefd[1], line, ft_strlen(line));
 		free(line);
 		line = get_next_line(0);
 	}
+	if (!line)
+		printf("warning: here-document delimited by end-of-file\n");
 	free(line);
 	close(pipefd[1]);
 	return (pipefd[0]);
